@@ -1,0 +1,296 @@
+[
+  {
+    "id": 0,
+    "story": "七七事变后，日本帝国主义为实现速战速决的战略企图，迅速从日本国内、驻朝鲜的部队和关东军抽调兵力增至平、津地区,战火立刻蔓延到整个华北。",
+    "animationDelay": 0,
+    "sourceOptions": {
+      "sourceId": "ribendiaobing",
+      "data": "/geojson/ribenpaibing.geojson"
+    },
+    "layerOptions": {
+      "layerId": "layer_ribendiaobing",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#18122B",
+        "fill-opacity": 0.7
+      },
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    "cameraPosition": {
+      "center": [
+        121.639167,
+        38.920833
+      ],
+      "zoom": 4,
+      "speed": 0.2,
+      "curve": 1,
+      "duration": 3000,
+      "easing": "//console.log(progress)\nif(progress > 0.9 && progress < 0.95)\n{ mapbox.map.setLayoutProperty('layer_ribendiaobing','visibility','visible') }\nreturn progress"
+    }
+  },
+  {
+    "id": 1,
+    "animationDelay": 5000,
+    "sourceOptions": {
+      "sourceId": "beijingAndtianjin",
+      "data": "/geojson/beijingAndtianjin.geojson"
+    },
+    "layerOptions": {
+      "layerId": "layer_beijingAndtianjin",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#FFEA20",
+        "fill-opacity": 0.5
+      },
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    "cameraPosition": {
+      "center": [
+        116.684,
+        39.738
+      ],
+      "zoom": 7,
+      "speed": 0.1,
+      "curve": 1,
+      "duration": 3000,
+      "easing": "//console.log(progress)\nif(progress > 0.9 && progress < 0.95)\n{ mapbox.map.setLayoutProperty('layer_beijingAndtianjin','visibility','visible') }\nreturn progress"
+    }
+  },
+  {
+    "id": 2,
+    "story": "为解华北危局,不待改编就绪的八路军115师分两批于8月22日和25日由陕西省三原县出发，经韩城县芝川镇东渡黄河,沿同蒲铁路向晋东北抗日前线挺进。",
+    "animationDelay": 5000,
+    "sourceOptions": {
+      "sourceId": "balujunsanyuanxianchufa",
+      "data": "/geojson/sanyuanxian.geojson"
+    },
+    "layerOptions": {
+      "layerId": "layer_balujunsanyuanxianchufa",
+      "type": "symbol",
+      "paint": {},
+      "layout": {
+        "icon-image": "custom-marker",
+        "text-field": [
+          "get",
+          "title"
+        ],
+        "text-font": [
+          "Open Sans Semibold",
+          "Arial Unicode MS Bold"
+        ],
+        "text-offset": [
+          0,
+          1.25
+        ],
+        "text-anchor": "top",
+        "visibility": "none"
+      }
+    },
+    "cameraPosition": {
+      "center": [
+        108.9359,
+        34.62037
+      ],
+      "zoom": 7,
+      "speed": 0.1,
+      "curve": 1,
+      "duration": 3000,
+      "easing": "//console.log(progress)\nif(progress > 0.9 && progress < 0.95)\n{ mapbox.map.setLayoutProperty('layer_balujunsanyuanxianchufa','visibility','visible') }\nif(progress > 0 && progress < 0.05)\n{ mapbox.map.setLayoutProperty('layer_beijingAndtianjin','visibility','none')\nmapbox.map.setLayoutProperty('layer_ribendiaobing','visibility','none')\nwarD.value = '为解华北危局,不待改编就绪的八路军115师分两批于8月22日和25日由陕西省三原县出发，经韩城县芝川镇东渡黄河,沿同蒲铁路向晋东北抗日前线挺进。' }\nreturn progress"
+    }
+  },
+  {
+    "id": 3,
+    "animationDelay": 5000,
+    "sourceOptions": {
+      "sourceId": "tujingzhichuanzhen",
+      "data": "/geojson/zhichuanzhen.geojson"
+    },
+    "layerOptions": {
+      "layerId": "layer_tujingzhichuanzhen",
+      "type": "symbol",
+      "paint": {},
+      "layout": {
+        "icon-image": "custom-marker",
+        "text-field": [
+          "get",
+          "title"
+        ],
+        "text-font": [
+          "Open Sans Semibold",
+          "Arial Unicode MS Bold"
+        ],
+        "text-offset": [
+          0,
+          1.25
+        ],
+        "text-anchor": "top",
+        "visibility": "none"
+      }
+    },
+    "cameraPosition": {
+      "center": [
+        110.39951,
+        35.37751
+      ],
+      "zoom": 7,
+      "speed": 0.1,
+      "curve": 1,
+      "duration": 1000,
+      "easing": "//console.log(progress)\nif(progress > 0.9 && progress < 0.95)\n{ mapbox.map.setLayoutProperty('layer_tujingzhichuanzhen','visibility','visible') }\nreturn progress"
+    }
+  },
+  {
+    "id": 4,
+    "animationDelay": 5000,
+    "sourceOptions": {
+      "sourceId": "balujundonduhuanghe",
+      "data": "/geojson/balujunduhuanghe.geojson"
+    },
+    "layerOptions": {
+      "layerId": "layer_balujundonduhuanghe",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#E21818",
+        "fill-opacity": 0.7
+      },
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    "cameraPosition": {
+      "center": [
+        110.39951,
+        35.37751
+      ],
+      "zoom": 6,
+      "speed": 0.1,
+      "curve": 1,
+      "duration": 2000,
+      "easing": "//console.log(progress)\nif(progress > 0.9 && progress < 0.95)\n{ mapbox.map.setLayoutProperty('layer_balujundonduhuanghe','visibility','visible') }\nreturn progress"
+    }
+  },
+  {
+    "id": 5,
+    "animationDelay": 5000,
+    "sourceOptions": {
+      "sourceId": "jinpujingong",
+      "data": "/geojson/jinpujingong.geojson"
+    },
+    "layerOptions": {
+      "layerId": "layer_jinpujingong",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#18122B",
+        "fill-opacity": 0.7
+      },
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    "cameraPosition": {
+      "center": [
+        117.66092206278627,
+        36.523507939600876
+      ],
+      "zoom": 5,
+      "speed": 0.1,
+      "curve": 1,
+      "duration": 3000,
+      "easing": "//console.log(progress)\nif(progress > 0.9 && progress < 0.95)\n{ mapbox.map.setLayoutProperty('layer_jinpujingong','visibility','visible') }\nif(progress > 0 && progress < 0.05)\n{ mapbox.map.setLayoutProperty('layer_balujunsanyuanxianchufa','visibility','none')\nmapbox.map.setLayoutProperty('layer_tujingzhichuanzhen','visibility','none')\nmapbox.map.setLayoutProperty('layer_balujundonduhuanghe','visibility','none')\nwarD.value = '1937年8月，日军以北平(今北京),天津地区为出发地，兵分3路发起进攻。第一路以1个半师团的兵力沿津浦路向南进犯;' }\nreturn progress"
+    }
+  },
+  {
+    "id": 6,
+    "animationDelay": 5000,
+    "sourceOptions": {
+      "sourceId": "pinghanjingong",
+      "data": "/geojson/pinghanjingong.geojson"
+    },
+    "layerOptions": {
+      "layerId": "layer_pinghanjingong",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#18122B",
+        "fill-opacity": 0.7
+      },
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    "cameraPosition": {
+      "center": [
+        117.66092206278627,
+        36.523507939600876
+      ],
+      "zoom": 5,
+      "speed": 0.1,
+      "curve": 1,
+      "duration": 3000,
+      "easing": "if(progress > 0.9 && progress < 0.95)\n{ mapbox.map.setLayoutProperty('layer_pinghanjingong','visibility','visible')\nwarD.value = '第二路以1个师团的兵力沿平汉路南犯，进窥河南;' }\nreturn progress"
+    }
+  },
+  {
+    "id": 7,
+    "animationDelay": 5000,
+    "sourceOptions": {
+      "sourceId": "pingsuijingong",
+      "data": "/geojson/pingsuijingong.geojson"
+    },
+    "layerOptions": {
+      "layerId": "layer_pingsuijingong",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#18122B",
+        "fill-opacity": 0.7
+      },
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    "cameraPosition": {
+      "center": [
+        112.66092206278627,
+        39.523507939600876
+      ],
+      "zoom": 6,
+      "speed": 0.1,
+      "curve": 1,
+      "duration": 3000,
+      "easing": "if(progress > 0.95 && progress < 1)\n{ mapbox.map.setLayoutProperty('layer_pingsuijingong','visibility','visible')\nwarD.value = '第三路为日军主攻方向，其西进的企图是由晋北打开通路，歼灭国民党第二战区主力，攻占太原，以大迂回的动作，迫使国民党的军队撤退，达到不战而占领华北五省的目的。' }\nif(progress > 0 && progress < 0.05)\n{ warD.value = '第三路以3个师团的兵力沿平绥路东段，同蒲路北段向西进犯。' }\nreturn progress"
+    }
+  },
+  {
+    "id": 8,
+    "animationDelay": 5000,
+    "sourceOptions": {
+      "sourceId": "rijunfenlianglu",
+      "data": "/geojson/rijunfenlianglu.geojson"
+    },
+    "layerOptions": {
+      "layerId": "layer_rijunfenlianglu",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#18122B",
+        "fill-opacity": 0.7
+      },
+      "layout": {
+        "visibility": "none"
+      }
+    },
+    "cameraPosition": {
+      "center": [
+        112.96092206278627,
+        39.523507939600876
+      ],
+      "zoom": 7,
+      "speed": 0.1,
+      "curve": 1,
+      "duration": 3000,
+      "easing": "if(progress > 0.95 && progress < 1)\n{ mapbox.map.setLayoutProperty('layer_rijunfenlianglu','visibility','visible') }\nif(progress > 0 && progress < 0.05)\n{ mapbox.map.setLayoutProperty('layer_jinpujingong','visibility','none')\nmapbox.map.setLayoutProperty('layer_pinghanjingong','visibility','none')\nmapbox.map.setLayoutProperty('layer_pingsuijingong','visibility','none')\nwarD.value = '为了实现这一企图，西进的日军又兵分两路向太原方向推进:一路由关东军察哈尔派遣兵团和2个独立混成旅团，沿同蒲铁路南进，经雁门关直太原;一路由日军第5师团向浑源、灵丘进攻,企图突破平型关与沿同蒲铁路南进之敌会师雁门关。' }\nreturn progress"
+    }
+  }
+]

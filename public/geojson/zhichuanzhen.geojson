@@ -1,0 +1,18 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          110.39951,
+          35.37751
+        ]
+      },
+      "properties": {
+        "title": "途径芝川镇"
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.9359,
+          34.62037
+        ]
+      },
+      "properties": {
+        "title": "115师从三原县出发"
+      }
+    }
+  ]
+}
