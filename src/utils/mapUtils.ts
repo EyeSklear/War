@@ -8,7 +8,7 @@ export function  flashLayer (layerid: any,map:mapBoxGl.Map)  {
     let delta = -0.05
     let opacity = 1;
     // Define the duration of the flashing effect
-    const duration = 1500; // in milliseconds
+    const duration = 2000; // in milliseconds
 
     // Set up the interval to alternate the layer's opacity
     let start = Date.now();

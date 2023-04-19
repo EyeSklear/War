@@ -191,6 +191,16 @@ const  pointsImp= {
         {
             type: 'Feature',
             properties: {
+                description: '平型关'
+            },
+            geometry: {
+                type: 'Point',
+                coordinates: [113.90439,39.30814]
+            }
+        },
+        {
+            type: 'Feature',
+            properties: {
                 description: '蔡家峪'
             },
             geometry: {

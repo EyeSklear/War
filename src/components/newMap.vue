@@ -197,6 +197,19 @@ const initMap = async () => {
         currentMouseValue.value[0] = String(Number(e.lngLat.lng).toFixed(5),);
         currentMouseValue.value[1] = String(Number(e.lngLat.lat).toFixed(5));
     });
+
+    map.on('click', (e: any) => {
+        console.log('当前的bearing值为：' + map.getBearing());
+        console.log('当前的pitch值为：' + map.getPitch());
+        console.log('当前的center值为：' + map.getCenter());
+        map.easeTo({
+            center: [113.9758628, 39.32994996],
+            duration: 2500, // 缓动动画的时间
+            easing: function (t: any) { // 缓动函数
+                return t;
+            }
+        });
+    })
     const popup = new mapboxgl.Popup({ offset: 25, closeOnClick: false })
         .setLngLat([113.9558628, 39.35994996])
         .setHTML('<h1 style=";color:red;">Hello World!</h1>')
@@ -251,20 +264,35 @@ const initMap = async () => {
                 }
             });
             let counter = 0;
-            const timer1 = setInterval(() => {
-                if (counter >= staticData.tuan6872xian.geometry.coordinates.length) {
-                    clearInterval(timer1)
-                    return
-                }
 
-                (testgeoj.features[0].geometry.coordinates as number[][]).push(staticData.tuan6872xian.geometry.coordinates[counter]);
-                map.setCenter(staticData.tuan6872xian.geometry.coordinates[counter]);
-                map.getSource('source').setData(testgeoj);
-                counter++;
-            }, 20);
-            //clearInterval(timer1)
+            map.easeTo({
+                center: staticData.tuan6872xian.geometry.coordinates[0],
+                pitch:55.5,
+                bearing:10.26619,
+                duration: 1000, // 缓动动画的时间
+                easing: function (t: any) { // 缓动函数
+                    return t;
+                }
+            });
+
+           const timeout= setTimeout(() => {
+                const timer1 = setInterval(() => {
+                    if (counter >= staticData.tuan6872xian.geometry.coordinates.length) {
+                        clearInterval(timer1)
+                        clearTimeout(timeout)
+                        return
+                    }
+
+                    (testgeoj.features[0].geometry.coordinates as number[][]).push(staticData.tuan6872xian.geometry.coordinates[counter]);
+                    //map.setCenter(staticData.tuan6872xian.geometry.coordinates[counter]);
+                    map.getSource('source').setData(testgeoj);
+                    counter++;
+                }, 20);
+            }, 1500)
+
+            
         }
-        const dyDraw = (sourceId:string,layerId:string,data:any,index:number,type:string,layerConfig?: any) => {
+        const dyDraw = (sourceId: string, layerId: string, data: any, index: number, type: string, layerConfig?: any) => {
             const testgeoj = {
                 'type': 'FeatureCollection',
                 'features': [
@@ -280,7 +308,7 @@ const initMap = async () => {
             //staticData.rijun21lvxian
             map.addSource(sourceId, {
                 type: 'geojson',
-                data: data
+                data: testgeoj
             });
             map.addLayer({
                 id: layerId,
@@ -292,14 +320,14 @@ const initMap = async () => {
 
             let counter = 0;
             const timer = setInterval(() => {
-                console.log(staticData.tuan6871xian.geometry.coordinates.length)
-                if (counter >= staticData.tuan6871xian.geometry.coordinates.length) {
+                console.log(data.geometry.coordinates.length)
+                if (counter >= data.geometry.coordinates.length) {
                     clearInterval(timer)
                     //setTimeout(dyDraw1, 20)
                     return
                 };
                 (testgeoj.features[0].geometry.coordinates as number[][]).push(data.geometry.coordinates[counter]);
-                map.setCenter(staticData.tuan6871xian.geometry.coordinates[counter]);
+                //map.setCenter(staticData.tuan6871xian.geometry.coordinates[counter]);
                 map.getSource(sourceId).setData(testgeoj);
                 counter++;
             }, 300);
@@ -360,28 +388,38 @@ const initMap = async () => {
         //     setTimeout(dyDraw1, 3000);
         // 绘制第二条线
         const tasks = [
-            // () => {
-            //     //dyDraw2();
-            //     dyDraw('tuan6872xian','tuan6872xian',staticData.tuan6872xian2, 2,'line',
-            //         {
-            //             paint: {
-            //                 'line-color': '#ff0000',
-            //                 'line-width': 8
-            //             }, layout: {}, filter: []
-            //         })
-            // },
-            // () => {
-            //     dyDraw1();
-            //     //sleep()
-            //     addLayer('tuan6871', 'tuan6871', staticData.tuan6871, 'fill',
-            // {
-            //     paint: {
-            //         'fill-color': '#ff0000',
-            //         'fill-opacity': 1,
-            //     }, layout: {}, filter: []
-            // })
+            () => {
+                //dyDraw2();
+                dyDraw('shizhuli115','shizhuli115',staticData.shizhuli115, 2,'line',
+                    {
+                        paint: {
+                            'line-color': '#ff0000',
+                            'line-width': 8
+                        }, layout: {}, filter: []
+                    })
+                 setTimeout(()=>{
+                    dyDraw('shizhuli6851','shizhuli6851',staticData.shizhuli6851, 2,'line',
+                    {
+                        paint: {
+                            'line-color': '#ff0000',
+                            'line-width': 8
+                        }, layout: {}, filter: []
+                    })
+                 },3000)   
+                //dyDraw1()
+            },
+            () => {
+                //dyDraw1();
+                //sleep()
+                addLayer('tuan6871', 'tuan6871', staticData.tuan6871, 'fill',
+                    {
+                        paint: {
+                            'fill-color': '#ff0000',
+                            'fill-opacity': 1,
+                        }, layout: {}, filter: []
+                    })
 
-            // },
+            },
             // () => {
             //     addLayer('tuan6872xian', 'tuan6872xian', staticData.tuan6872xian2, 'line',
             //         {
@@ -409,9 +447,9 @@ const initMap = async () => {
                             'fill-opacity': 0,
                         }, layout: {}, filter: []
                     })
-                    flashLayer('tuan686summian', map)
+                flashLayer('tuan686summian', map)
             },
-            
+
 
         ];
 
