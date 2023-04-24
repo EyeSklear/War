@@ -221,6 +221,7 @@ const timer = ref(0)
 const warDescription = ref('')
 const isStarted = ref(false)
 const active = ref(0)
+
 //用于战争播放和暂停的定时器
 const timers = ref()
 const onPlay = (ev: any) => {
@@ -255,14 +256,14 @@ const options = reactive({
   poster: '', //封面
   speedRate: [1.0, 1.25, 1.5, 2.0], // 可选的播放速度
   controlBtns: [
-    "audioTrack",//音轨切换按钮
-    "quality",//视频质量切换按钮
-    "speedRate",//速率切换按钮
-    "volume",//音量
-    "setting",//设置
-    "pip",//画中画按钮
-    "pageFullScreen",//网页全屏按钮
-    "fullScreen",//全屏按钮
+    // "audioTrack",//音轨切换按钮
+    // "quality",//视频质量切换按钮
+    // "speedRate",//速率切换按钮
+    // "volume",//音量
+    // "setting",//设置
+    // "pip",//画中画按钮
+    // "pageFullScreen",//网页全屏按钮
+    // "fullScreen",//全屏按钮
     //显示所有按钮,
   ]
 })

@@ -4,7 +4,7 @@
 export function  flashLayer (layerid: any,map:mapBoxGl.Map)  {
     // Set the initial opacity to 0
     map?.setPaintProperty(layerid, 'fill-opacity', 0);
-    console.log(map)
+    
     let delta = -0.05
     let opacity = 1;
     // Define the duration of the flashing effect
@@ -23,8 +23,8 @@ export function  flashLayer (layerid: any,map:mapBoxGl.Map)  {
         map?.setPaintProperty(layerid, 'fill-opacity', opacity);
         if (timePassed > duration) {
             clearInterval(interval);
-            map?.setPaintProperty(layerid, 'fill-opacity', 0.8);
+            map?.setPaintProperty(layerid, 'fill-opacity', 0.4);
         }
-    }, 20);
+    }, 200);
 }
 
