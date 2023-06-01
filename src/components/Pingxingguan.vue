@@ -28,13 +28,6 @@
           <div style="width:46vmax;height:18vh;margin-left: 2vmax;padding-top:5vh;">
 
             <el-steps :active="active" align-center>
-              <!-- <el-step title="Step 1" description="Some description" />
-              <el-step title="Step 2" description="Some description" />
-              <el-step title="Step 3" description="Some description" />
-              <el-step title="Step 4" description="Some description" />
-              <el-step title="Step 5" description="Some description" />
-              <el-step title="Step 6" description="Some description" />
-              <el-step title="Step 7" description="Some description" /> -->
 
               <el-step v-for="(item, index) in staticData.warIntro" :key="index" @click="active = index" :title="index"
                 :description="staticData.warIntro[index].des">

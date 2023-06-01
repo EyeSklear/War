@@ -1,44 +1,286 @@
 <template>
+    <audio id="audio2"  ref="audio2"  volume="0.04" loop>
+        <source src='/static/bj.mp3' />
+    </audio>
+    <div class="fly-container" v-if="airplane">
+        <div class="fly">
+            <el-image src="http://localhost:8060/getImage?name=air9" fit="fill"></el-image>
+        </div>
+    </div>
+    <audio id="audio" ref="audio" class="aud" :key="audioFlag">
+        <source :src=audioIndex />
+    </audio>
+    <div v-if="boomFlag">
+    <audio id="audio3" ref="audio3"   volume="0.2" loop>
+        <source src='/static/baozhasheng.mp3' />
+    </audio>
+</div>
+
+    <!-- v-if="ListShowSum" -->
+    <!-- <div class="lists" >
+        <div :class="{ 'dis': !listShow, 'app': listShow }"> -->
+
+    <div class="lists" v-if="false">
+
+        <el-radio-group v-model="isCollapse" style="margin-bottom: 10px">
+            <el-radio-button :label="false">展开</el-radio-button>
+            <el-radio-button :label="true">收起</el-radio-button>
+        </el-radio-group>
+        <el-scrollbar height="75vh">
+            <el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen"
+                @close="handleClose">
+                <el-sub-menu index="1">
+                    <template #title>
+                        <el-icon>
+                            <Clock />
+                        </el-icon>
+                        <span>时间</span>
+                    </template>
+                    <el-menu-item-group>
+                        <template #title><span>九月二十四日</span></template>
+                        <el-menu-item index="1-1">九月二十四日晨</el-menu-item>
+                        <el-menu-item index="1-2">九月二十四日午</el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group title="九月二十五日">
+                        <el-menu-item index="1-3">九月二十五日晨</el-menu-item>
+                        <el-menu-item index="1-4">九月二十五日午</el-menu-item>
+                    </el-menu-item-group>
+                    <!-- <el-sub-menu index="1-4">
+        <template #title><span>item four</span></template>
+        <el-menu-item index="1-4-1">item one</el-menu-item>
+      </el-sub-menu> -->
+                </el-sub-menu>
+                <el-sub-menu index="2">
+                    <template #title>
+                        <el-icon>
+                            <location />
+                        </el-icon>
+                        <span>地点</span>
+                    </template>
+                    <el-menu-item-group>
+                        <template #title><span>平型关地区</span></template>
+                        <el-menu-item index="2-1">老爷庙区域</el-menu-item>
+                        <el-menu-item index="2-2">蔡家峪区域</el-menu-item>
+                        <el-menu-item index="2-3">小寨村区域</el-menu-item>
+                        <el-menu-item index="2-4">团城口区域</el-menu-item>
+                    </el-menu-item-group>
+                    <!-- <el-menu-item-group title="Group Two">
+        <el-menu-item index="1-3">九月二十五日</el-menu-item>
+      </el-menu-item-group> -->
+                    <!-- <el-sub-menu index="1-4">
+        <template #title><span>item four</span></template>
+        <el-menu-item index="1-4-1">item one</el-menu-item>
+      </el-sub-menu> -->
+                </el-sub-menu>
+                <!-- <el-menu-item index="2">
+      <el-icon><icon-menu /></el-icon>
+      <template #title>地点</template>
+    </el-menu-item> -->
+                <!-- <el-menu-item index="3" disabled>
+      <el-icon><document /></el-icon>
+      <template #title>人物</template>
+    </el-menu-item> -->
+                <el-sub-menu index="3">
+                    <template #title>
+                        <el-icon>
+                            <UserFilled />
+                        </el-icon>
+                        <span>人物</span>
+                    </template>
+                    <el-menu-item-group>
+                        <template #title><span>红军115师343旅</span></template>
+                        <el-menu-item index="3-1">685团</el-menu-item>
+                        <el-menu-item index="3-2">686团</el-menu-item>
+                        <el-menu-item index="3-3">687团</el-menu-item>
+                    </el-menu-item-group>
+                    <el-menu-item-group>
+                        <template #title><span>日军第5师21旅</span></template>
+                        <el-menu-item index="3-4">日军第5师21旅</el-menu-item>
+
+                    </el-menu-item-group>
+                    <!-- <el-sub-menu index="1-4">
+        <template #title><span>item four</span></template>
+        <el-menu-item index="1-4-1">item one</el-menu-item>
+      </el-sub-menu> -->
+                </el-sub-menu>
+                <el-sub-menu index="4">
+                    <template #title>
+                        <el-icon>
+                            <document />
+                        </el-icon>
+                        <span>事件</span>
+                    </template>
+                    <el-menu-item-group>
+                        <template #title><span>总览事件</span></template>
+                        <el-menu-item index="4-1" @click="zhanqianbushu()">战前准备,红军部署</el-menu-item>
+                        <el-menu-item index="4-2">日军行进,红军围堵</el-menu-item>
+                        <el-menu-item index="4-3">日军求援,红军拦路</el-menu-item>
+                        <el-menu-item index="4-4">短兵相见,死伤无数</el-menu-item>
+                        <el-menu-item index="4-5">战后清点,缴获丰富</el-menu-item>
+                    </el-menu-item-group>
+                </el-sub-menu>
+            </el-menu>
+        </el-scrollbar>
+    </div>
     <!-- 战争伤亡情况 -->
     <!-- <div id="bingli"></div> -->
     <!-- 战争解读视频 -->
-    <!-- <div class='vedio' v-show="videoOn" style="width:100%;height: 100%;display: flex;justify-content: center;margin-top:2vh;">
-        <vue3VideoPlay width="40vmax" height="45vh" title="老爷庙" :src="options.src" :poster="options.poster" @play="onPlay" @pause="onPause" @timeupdate="onTimeupdate" @canplay="onCanplay" />
-            <div>
-                <el-button type="danger" :icon="CloseBold"  @click="overVideo" />
-            </div>
-    </div> -->
-    <div class="jiaohuo" v-if="jiaohuo">
-        <dv-border-box1  style="backdrop-filter: blur(2px)">
-                <div class="BingliCon">
-                  <div class="binglitext">
-                    <h1>战争缴获</h1>
-                  </div>
-                  <echartsJH></echartsJH>
-                </div>
-              </dv-border-box1>
+    <!-- v-show="videoOn" -->
+    <div class='vedio' v-if="videoOn">
+        <vue3VideoPlay width="29vmax" height="41vh" title="老爷庙" :src="options.src" :poster="options.poster"
+            :autoPlay="options.autoPlay" @play="onPlay" @pause="onPause" @timeupdate="onTimeupdate" @canplay="onCanplay" />
+        <div>
+            <el-button type="danger" :icon="CloseBold" @click="overVideo" />
+        </div>
     </div>
-    <div class="zuo_person" v-show="personVs == true">
+    <!-- v-if="jiaohuo" -->
+    <div class="jiaohuo"  v-if="jiaohuo">
+        <!-- <dv-border-box1 style="width: 32vw; height: 60vh; position: relative;backdrop-filter: blur(2px)">
+            <div class="BingliCon">
+                <echartsDie></echartsDie>
+            </div>
+        </dv-border-box1> -->
+        <dv-border-box1 style="width: 40vw; height: 45vh; position: relative;backdrop-filter: blur(2px)">
+            <div class="BingliCon">
+                <!-- <div class="binglitext">
+                    <h1>战争缴获</h1>
+                </div> -->
+                <echartsDie></echartsDie>
+            </div>
+        </dv-border-box1>
+        
+    </div>
+    <div class="die"  v-if="jiaohuo">
+        <!-- <dv-border-box1 style="width: 32vw; height: 60vh; position: relative;backdrop-filter: blur(2px)">
+            <div class="BingliCon">
+                <echartsDie></echartsDie>
+            </div>
+        </dv-border-box1> -->
+        <dv-border-box1 style="width: 40vw; height: 45vh; position: relative;backdrop-filter: blur(2px)">
+            <div class="BingliCon">
+                <!-- <div class="binglitext">
+                    <h1>战争缴获</h1>
+                </div> -->
+                <echartsJH></echartsJH>
+            </div>
+        </dv-border-box1>
+        
+    </div>
+    <!-- v-if="textIntroFlag>0" -->
+    <div class="textIntro"  v-if="textIntroFlag>0">
+        <dv-border-box-9 :color="['#00a1ff']" style="position: relative;backdrop-filter: blur(2px);background-color: rgba(48,49,51,0.5);">
+          <div style="color:#fafafa;text-align: center;margin-top: 1vh;margin-bottom: 1vh">
+            <h1 style="font-family: 楷体">{{ textTitle }}</h1>
+          </div>
+          <el-scrollbar height="34vh">
+            <div v-if="textIntroFlag==1"
+              style=";color:#fafafa;width:90%;height:90%;margin-bottom:6vh;margin-left: 2vw;margin-right: 1vmax;line-height:40px;font-family: 楷体;">
+              <p class="ex"><span class="ex5">1937年8月</span>，日军以北平(今北京),天津地区为出发地，兵分3路发起进攻。第一路以1个半师团的兵力沿津浦路向南进犯;
+	第二路以1个师团的兵力沿平汉路南犯，进窥河南;第三路以3个师团的兵力沿平绥路东段，同蒲路北段向西进犯。
+	第三路为日军<span class="ex3">主攻</span>方向，其西进的企图是由晋北打开通路，歼灭国民党第二战区主力，攻占<span class="ex2">太原</span>，以大迂回的动作，
+	迫使国民党的军队撤退，达到不战而占领华北五省的目的。
+为了实现这一企图，西进的日军又兵分两路向太原方向推进:一路由关东军察哈尔派遣兵团和2个独立混成旅团，
+	沿同蒲铁路南进，经雁门关直太原;一路由<span class="ex1">日军第5师团</span>向浑源、灵丘进攻,企图突破<span class="ex2">平型关</span>与沿同蒲铁路南进之敌会师<span class="ex2">雁门关</span>。
+雁门关、平型关是<span class="ex1">国民党军</span>长城防线的两道关口，也是日军进攻太原的<span class="ex2">必经之地</span>。
+	日军一旦攻取两关，即可长驱直入，兵临太原城下，太原垂手可得。由于雁门关地势比平型关更为险要，
+	又有重兵把守，难以从<span class="ex4">正面</span>夺取，而平型关地处山西和河北交界的地方,是个比较<span class="ex4">薄弱</span>的环节。
+	因此，日军将其主力第5师团用于平型关方向，企图由平型关一举突破长城防线，
+	取下代县，卡断雁门关后路，从背后攻取雁门关，然后与雁门关正面的日军<span class="ex3">合兵一处，直扑太原</span>。</p>
+            </div>
+            <div v-if="textIntroFlag==2"
+              style=";color:#fafafa;width:90%;height:90%;margin-bottom:5vh;margin-left: 2vw;margin-right: 1vmax;line-height:40px;font-family: 楷体;font-size: large;">
+              <p class="ex"><span class="ex5">1937年8月</span>，日军以北平(今北京),天津地区为出发地，兵分3路发起进攻。第三路以3个师团的兵力沿平绥路东段，同蒲路北段向西进犯。
+	第三路为日军<span class="ex3">主攻</span>方向，其西进的企图是由晋北打开通路，歼灭国民党第二战区主力，攻占<span class="ex2">太原</span>，以大迂回的动作，
+	迫使国民党的军队撤退，达到不战而占领华北五省的目的。
+为了实现这一企图，西进的日军又兵分两路向太原方向推进:一路由关东军察哈尔派遣兵团和2个独立混成旅团，
+	沿同蒲铁路南进，经雁门关直太原;一路由<span class="ex1">日军第5师团</span>向浑源、灵丘进攻,企图突破<span class="ex2">平型关</span>与沿同蒲铁路南进之敌会师<span class="ex2">雁门关</span>。
+雁门关、平型关是<span class="ex1">国民党军</span>长城防线的两道关口，也是日军进攻太原的<span class="ex2">必经之地</span>。
+	日军一旦攻取两关，即可长驱直入，兵临太原城下，太原垂手可得。由于雁门关地势比平型关更为险要，
+	又有重兵把守，难以从<span class="ex4">正面</span>夺取，而平型关地处山西和河北交界的地方,是个比较<span class="ex4">薄弱</span>的环节。
+	因此，日军将其主力第5师团用于平型关方向，企图由平型关一举突破长城防线，
+	取下代县，卡断雁门关后路，从背后攻取雁门关，然后与雁门关正面的日军<span class="ex3">合兵一处，直扑太原</span>。
+	9月中旬，阎锡山指挥的第2战区战事紧迫。阎锡山在日寇攻势下压力极大,他随即要求<span class="ex1">八路军</span>帮助防守平型关。周恩来、彭德怀表示同意。23日,八路军总部遂电令林彪、聂荣臻率<span class="ex1">115师</span>
+	主力侧击正向平型关开进之敌。
+9月25日晨，在平型关一个不引人注目的无名山头上，林彪、聂荣臻设下了指挥部。
+</p>
+            </div>
+            <div v-if="textIntroFlag==3"
+              style=";color:#fafafa;width:90%;height:90%;margin-bottom:5vh;margin-left: 2vw;margin-right: 1vmax;line-height:40px;font-family: 楷体;font-size: large;">
+              <p class="ex">
+	<span class="ex1">林彪、聂荣臻</span>的“口袋”在平型关口已稳稳布好；343旅之685团由杨得志率领,
+	686团由杨勇率领埋伏于10里长沟,685团伏于白崖台以西准备消灭并沟至老爷庙的日寇,686团伏于右侧，准备歼灭老爷庙至蔡家峪的敌人;徐海东的344旅之687团，
+	正奉命虎踞于东河南以北的高地，准备断敌后路;688团作为预备队尚未开进阵地;
+	杨成武率独立团、刘云彪率骑兵营也<span class="ex3">悄然进军</span>平型关的东北面及东面，准备配合主力作战。
+	一条<span class="ex2">峡谷山路</span>，长达七公里，东通河北，西接雁门，地势极为险要，历来为兵家所<span class="ex4">必争</span>。平型关口至灵丘县东河南镇长约13公里的地段，
+	崖高数丈，陡峭如削，崖顶平缓，杂草丛生，两侧高地便于隐蔽部署兵力，便于发扬火力与展开突击，是伏击歼敌的好战场
+	<span class="ex5">1937年9月25日晨</span>，<span class="ex1">日军第5师第21旅一部和大批辎重车辆</span>，沿灵丘至平型关公路西进。7时许，全部进入第115师设伏地域。
+	由于道路<span class="ex4">狭窄</span>，雨后路面泥泞，其车辆人马<span class="ex4">拥挤堵塞，行动缓慢</span>。第115师立即抓住有利战机，突然以步枪、机关枪、手榴弹的猛烈火力，给日军以大量杀伤；
+	并乘其惊慌混乱之际发起<span class="ex3">冲击</span>。<span class="ex1">第685团</span>迎头截击，歼日军一部。
+	<span class="ex1">第686团第1、第3营</span>勇猛地冲向<span class="ex2">峡谷山路</span>，同日军展开白刃格斗。日军<span class="ex4">死伤惨重</span>，但仍利用车辆辎重作掩护进行顽抗。
+	其中一部企图抢占公路西侧<span class="ex2">老爷庙</span>及其附近高地，掩护突围。
+	第686团第3营迅速冲过公路，先敌占领了老爷庙及其以北高地，与公路东侧部队对日军构成<span class="ex3">两面夹击之势</span>，并将日军压迫于老爷庙至小寨村的<span class="ex2">峡谷</span>之中。
+</p>
+            </div>
+            <div v-if="textIntroFlag==4"
+              style=";color:#fafafa;width:90%;height:90%;margin-bottom:5vh;margin-left: 2vw;margin-right: 1vmax;line-height:40px;font-family: 楷体;font-size: large;">
+              <p class="ex">
+	<span class="ex2">老爷庙</span>制高点位于乔沟西北侧，老爷庙座西北朝东南，是当地老百姓依山而建的一座小庙，<span class="ex4">前低后高</span>，是沟堑的制高点。庙前一片平缓的坡地向东南伸去。
+	第115师立即抓住有利战机，突然以步枪、机关枪、手榴弹的猛烈火力，给日军以大量杀伤；并乘其惊慌混乱之际发起冲击。
+	第686团第1、第3营勇猛地冲向公路，同日军展开<span class="ex3">白刃格斗</span>。日军<span class="ex4">死伤惨重</span>，但仍利用车辆辎重作掩护进行顽抗。
+	其中一部企图抢占公路西侧<span class="ex2">老爷庙及其附近高地</span>，掩护突围。第686团第3营<span class="ex4">迅速</span>冲过公路，先敌占领了老爷庙及其以北高地，与公路东侧部队对日军构成<span class="ex3">两面夹击之势</span>，并将日军压迫于老爷庙至小寨村的峡谷之中。
+	被围日军连续向老爷庙<span class="ex3">疯狂反扑，企图突围</span>，均被扼守该地的<span class="ex1">第3营</span>击退。为解救被围日军，先期进占<span class="ex2">东跑池</span>的日军一部回援，
+	被第685团阻击。被围于老爷庙至小寨村的日军，<span class="ex1">6架飞机</span>在掩护下，再次猛攻老爷庙及附近地区，仍未得逞。接着，第686团集中全力，在第685团和第687团各一部协同下，将被围的日军全歼。<span class="ex5">1937年9月25日13时许</span>战斗结束。
+	随后，第343旅向东跑池一带日军展开攻击。由于国民党军<span class="ex3">未按预定作战计划出击</span>，致使东跑池的日军于黄昏由<span class="ex2">团城口</span>突围。
+	</p>
+            </div>
+            <div v-if="textIntroFlag==5"
+              style=";color:#fafafa;width:90%;height:90%;margin-bottom:5vh;margin-left: 2vw;margin-right: 1vmax;line-height:40px;font-family: 楷体;font-size: large;">
+              <p class="ex">
+日军被八路军缴获装备及物资如下：
+<span class="ex2">武器装备</span>：92步兵炮1门、步枪1000余支、短枪13支、轻重机枪20余挺；
+<span class="ex2">弹药</span>：炮弹2840发、步枪子弹3595发、机枪子弹67OO发；
+<span class="ex2">交通运输工具</span>：汽车79辆、摩托车3辆、马车200辆、骡3匹；
+<span class="ex2">其他</span>：军马50余匹、防毒器具100余套、工兵器具18个；
+		此战，第115师以<span class="ex4">劣势</span>装备一举歼灭日军精锐第5师第21旅一部<span class="ex1">1000余人</span>，
+	击毁汽车百余辆、马车200辆，缴获步兵炮1门、轻重机枪20余挺、步枪1000余支、军马50余匹及其他大批军用物资，牵制了日军第5师的进攻，
+	平型关的胜利对于<span class="ex2">敌后根据地</span>的建立，起到了非常直接的支持作用。时任686团组织处股长的欧阳文（1955年授中将衔）说：
+	“平型关一战我们八路军、115师一下就打出名气了，战后我们到晋南<span class="ex3">招兵</span>。我们团的招兵处和国民党的紧挨着，他们那边根本没人去，我们用了一个星期就招了<span class="ex1">3,000</span>多人
+	同时支援了平汉铁路和同蒲铁路线上的<span class="ex1">国民党军</span>作战。
+	这是全面抗战开始以来中国军队取得的<span class="ex3">第一次大胜利</span>。
+	它<span class="ex3">打击</span>了侵华日军的气焰，<span class="ex3">振奋</span>了全国的民心士气，<span class="ex3">提高</span>了中国共产党和八路军的声威。
+	
+	</p>
+            </div>
+          </el-scrollbar>
+
+          <!-- <div style="color:#fafafa;margin-left: 1.5vmax;margin-top: 2vh;">
+      <echartsTest></echartsTest>
+      </div> -->
+        </dv-border-box-9>
+    </div>
+    <div class="zuo_person"  v-if="personVs == true">
+        
         <div class="at-item">
-            <dv-border-box-9 :color="['#00a1ff']" style="width: 23vw; height: 55vh; position: relative">
+            <dv-border-box-9 :color="['#00a1ff']" style="width: 20vw; height: 42vh; position: relative;backdrop-filter: blur(2px)">
 
                 <div class="flex-row-center">
                     <h1> 八路军第115师师长林彪</h1>
                 </div>
                 <div class="content-part-1">
-                    <img class="img" src="@/assets/Lin_Biao.jpg" style="width: 21vw;height: 49vh;" />
+                    <img class="img" src="@/assets/Lin_Biao.jpg" style="width: 80%;height: 88%;" />
                 </div>
             </dv-border-box-9>
         </div>
     </div>
-    <div class="you_person" v-show="personVs == true">
+    <div class="you_person"  v-if="personVs == true">
+        
         <div :class="{ 'at-item': !banyuanDie, 'at-item2': banyuanDie }">
-            <dv-border-box-9 :color="['#00a1ff']" style="width: 23vw; height: 55vh; position: relative">
+            <dv-border-box-9 :color="['#00a1ff']" style="width: 20vw; height: 42vh; position: relative;backdrop-filter: blur(2px)">
                 <div class="flex-row-center">
                     <h1> 日军第5师师长板垣征四郎</h1>
                 </div>
                 <div class="content-part-2">
-                    <img class="img" src="@/assets/banyuan.png" style="width: 21vw;height: 49vh;" />
+                    <img class="img" src="@/assets/banyuan.png" style="width: 80%;height: 88%;" />
                 </div>
 
             </dv-border-box-9>
@@ -50,7 +292,7 @@
         </button>
     </div>
     <!-- v-show="ifPause == true" -->
-    <div class="text-wrapper"  v-show="ifPause == true">
+    <div class="text-wrapper" v-show="ifPause == true">
         <!-- <dv-border-box12 style="padding:20px 10px 10px 10px;"> -->
         <p ref="text" class="textsss">{{ textMessage }}</p>
 
@@ -58,84 +300,56 @@
     </div>
     <div class="progress-line" v-show="ifPause == true">
         <div class="progress-bar">
-
-            <!-- <div style="width:20%">1</div>
-            <div style="width:20%">2</div>
-            <div style="width:20%">3</div>
-            <div style="width:20%">4</div>
-            <div style="width:20%">5</div> -->
         </div>
-
     </div>
     <div class="progress-line2" v-show="ifPause == true">
         <div class="progress-bar2">
 
-            <div style="width:10.76%">战前准备,红军部署</div>
-            <div style="width:36.58%">日军行进,红军围堵</div>
-            <div style="width:20.39%">日军求援,红军拦路</div>
-            <div style="width:22.78%">短兵相见,死伤无数</div>
-            <div style="width:9.49%">战后清点,缴获丰富</div>
+            <div style="width:26.09%">战前准备,红军部署</div>
+            <div style="width:25.54%">日军行进,红军围堵</div>
+            <div style="width:18.48%">日军求援,红军拦路</div>
+            <div style="width:15.94%">短兵相见,死伤无数</div>
+            <div style="width:13.95%">战后清点,缴获丰富</div>
         </div>
 
     </div>
     <div id="map" ref="container"></div>
-    <div class="explain" v-show="drawIndex <= 4 && drawIndex >= 1">
+    <!-- <div class="explain" v-if="drawIndex <= 6 && drawIndex >= 4">
         <div class="at-item" v-cloak>
-            <dv-border-box1 style=";width:26vw;height: 60vh;padding:10px;">
+            <dv-border-box7 style=";width:26vw;height: 60vh;padding:10px;">
                 <el-image style="width: 25vw; height:58vh;top:1vh;opacity: 0.8; "
                     src="http://localhost:8060/getImage?name=jvbu" fit="fill" />
-            </dv-border-box1>
+            </dv-border-box7>
         </div>
-    </div>
+    </div> -->
     <!-- v-show="drawIndex > 4 && drawIndex < 6" -->
-    <div class="explain2">
-        <div class="at-item" v-show="drawIndex > 4 && warShow==true">
-            <dv-border-box1 style=";width:32vw;height: 48vh;backdrop-filter: blur(2px)">
-                <el-image style="width: 30vw; height:45vh;top:1vh; opacity: 0.8" preview-src-list :src="thumImage"
-                    fit="fill" />
-            </dv-border-box1>
+    <div class="explain2"  v-if="drawIndex > 6 && warShow == true">
+        <!-- v-if="drawIndex > 6 && warShow == true" -->
+        <div class="at-item">
+            <dv-border-box9 style=";width:30vw;height: 43vh;backdrop-filter: blur(2px);position: relative">
+                <el-image style="width: 28vw; height:41vh;margin-top: 1vh;margin-left: 1vw;; opacity: 0.8;position: relative;"  :src="thumImage" fit="fill" />
+
+            </dv-border-box9>
         </div>
     </div>
-    <div class="explain3" v-show="drawIndex <= 3 && ifPause == true">
+    <!-- v-show="drawIndex <= 3 && ifPause == true" -->
+    <div class="explain3" v-if=" zonglan == true ">
         <div :class="{ 'at-item': imageShow, 'at-item2': !imageShow }">
-
-            <el-image style="width: 20vw; height:47vh;top:1vh;opacity: 0.8 " preview-src-list
+            <el-image style="width: 20vw; height:47vh;top:1vh;opacity: 0.8 " 
                 src="http://localhost:8060/getImage?name=wars" fit="fill" />
-
         </div>
     </div>
-    <!-- <div class="menuBar"> -->
-    <!-- <input type="button" value="开始" @click="startClick()" />
-        <input type="button" value="暂停" @click="pauseClick()" />
-        <input type="button" value="停止" @click="stopClick()" /> -->
-    <!-- {{ currentMouseValue[0] }},{{ currentMouseValue[1] }} -->
-
-    <!-- </div> -->
-    <!-- <div class="text">
-        {{ textValue }}
-    </div>
-    <div class="play-button">
-      <el-button type="primary" :icon="Edit" circle />
-    </div> -->
-    <!-- <div >
-        <div>
-      <vue3VideoPlay 
-      width="800px"
-      title="钢铁侠"
-      :src="options.src"
-      :poster="options.poster"
-      @play="onPlay"
-      @pause="onPause" 
-      @timeupdate="onTimeupdate" 
-      @canplay="onCanplay" />
-  </div>
-
-    </div> -->
-
+    <!-- v-if="gifFlag" -->
+    <div class="explain4" v-if="gifFlag">
+        
+        
+            <!-- <el-image style="width: 30vw; height:45vh;top:1vh; opacity: 0.8" preview-src-list :src="thumImage"
+                fit="fill" /> -->
+                <img :src=textGif alt="your_gif" style="width: 8vw; height:12vh;margin-left: 1vw;margin-top:1vh">
+                <img :src=textGif alt="your_gif" style="width: 8vw; height:12vh;margin-left: 1vw;margin-top:2vh">
+                <img :src=textGif alt="your_gif" style="display:block;width: 8vw; height:12vh;margin-left: 4vw;margin-top:1vh">
+</div>
     <div>
-        <!-- <lk-timeline
-
-    ></lk-timeline> -->
     </div>
 </template>
 <script setup lang="ts">
@@ -143,9 +357,11 @@ import mapboxgl from "mapbox-gl";
 import mapBoxGl from "mapbox-gl";
 import * as turf from "@turf/turf";
 import staticData from '../../static/data'
+import { drawSet } from  '../../static/task'
 import * as echarts from 'echarts';
 import * as echatsCore from 'echarts/core'
 import echartsJH from './echartsJH.vue';
+import echartsDie from './echartsDie.vue';
 
 import {
     Check,
@@ -155,15 +371,22 @@ import {
     Message,
     Search,
     Star,
+    Document,
+    UserFilled,
+    Clock,
+    Menu as IconMenu,
+    Location,
+    Setting,
 } from '@element-plus/icons-vue'
 import axios from "axios";
 import { defineComponent, onMounted, ref, reactive, watch } from "vue";
 import { url } from "inspector";
-import { flashLayer } from '../utils/mapUtils'
+import { flashLayer,sleep,addLayer,cameraAlong,asyncAddLayer } from '../utils/mapUtils'
 import { promiseTimeout } from "@vueuse/shared";
 import { resolve } from "path";
 let map: mapBoxGl.Map;
 const ifPause = ref(false)
+const zonglan = ref(false)
 const text = ref(null)
 const task = ref<any[]>([])
 const thumImage = ref('http://localhost:8060/getImage?name=all-check')
@@ -173,16 +396,43 @@ let playSpeed: 1000;// 播放速度
 let play: false; // 自动播放
 let lockFlag: false;
 let markFlag: false;
-const banyuanDie =ref(false)
-const personVs= ref(false)
+const banyuanDie = ref(false)
+const personVs = ref(false)
 const imageShow = ref(true)
-const jiaohuo=ref(false)
-const warShow=ref(true)
+const jiaohuo = ref(false)
+const warShow = ref(true)
+//事件列表
+const listShow = ref(false)
+const ListShowSum = ref(false)
+const textTitle =ref('战前背景')
+const ex1=ref('black')
+const ex2=ref('rgb(0,0,255)')
+const ex3=ref('red')
+const ex4=ref('green')
+const ex5=ref('yellow')
+//切换文字
+const textIntroFlag=ref(0)
+const gifFlag=ref(false)
+const boomFlag=ref(false)
 type EChartsOption = echarts.EChartsOption;
 let lockDate: []; // 锁定的日期（滑动结束时自动跳到指定的日期）
 let markDate: []; // 做标记的日期
 let mask: true;
 const textLen = ref(0)
+//用于判断是否已经开始重映
+const rePlayFlag = ref('false')
+const removeLayer = (layerId: string, sourceId: string) => {
+    map.removeLayer(layerId);
+    map.removeSource(sourceId);
+
+}
+const isCollapse = ref(true)
+const handleOpen = (key: string, keyPath: string[]) => {
+    console.log(key, keyPath)
+}
+const handleClose = (key: string, keyPath: string[]) => {
+    console.log(key, keyPath)
+}
 const onPlay = (ev: any) => {
     //console.log('播放')
 }
@@ -193,9 +443,68 @@ const onPause = (ev: any) => {
 const onTimeupdate = (ev: any) => {
     // console.log(ev, '时间更新')
 }
+const hasReSet = ref(false)
+const dyDrawTest = async () => {
+    return new Promise(resolve => {
+        //hasReSet用于判断是否已经重置drawIndex
+        if (rePlayFlag.value == 'zhanqian' && hasReSet.value == true) {
+            drawIndex.value = 2
+            hasReSet.value = false
+            console.log('我走这里')
+        }
+        // if(rePlayFlag.value == 'zhanqian'){
+        //     drawIndex.value=2
+        // }
+
+        let testgeoj = {
+            'type': 'FeatureCollection',
+            'features': [
+                {
+                    'type': 'Feature',
+                    'geometry': {
+                        'type': 'LineString',
+                        'coordinates': []
+                    }
+                }
+            ]
+        };
+        //staticData.rijun21lvxian
+        map.addSource(drawSet[drawIndex.value]?.sourceId, {
+            type: 'geojson',
+            data: testgeoj
+        });
+        map.addLayer({
+            id: drawSet[drawIndex.value]?.layerId,
+            type: drawSet[drawIndex.value].type,
+            source: drawSet[drawIndex.value].sourceId,
+            paint: drawSet[drawIndex.value].layerConfig?.paint,
+            layout: drawSet[drawIndex.value].layerConfig?.layout,
+        })
+        let counter = 0;
+        const timer = setInterval(() => {
+            if (counter >= drawSet[drawIndex.value].data.geometry.coordinates.length) {
+                clearInterval(timer)
+                //setTimeout(dyDraw1, 20)
+                drawIndex.value++
+                map?.setPaintProperty(drawSet[drawIndex.value - 1]?.layerId, 'line-opacity', 0.6);
+                resolve("resolve")
+                return
+            };
+            (testgeoj.features[0].geometry.coordinates as any).push(drawSet[drawIndex.value]?.data.geometry.coordinates[counter]);
+            //map.setCenter(staticData.tuan6871xian.geometry.coordinates[counter]);
+            map.getSource(drawSet[drawIndex.value]?.sourceId)?.setData(testgeoj);
+            counter++;
+        }, drawSet[drawIndex.value]?.speed);
+
+        //clearInterval(timer2)
+
+
+    })
+}
 const onCanplay = (ev: any) => {
     // console.log(ev, '可以播放')
 }
+const textGif = ref('/static/boom.gif')
 const videoOn = ref(false)
 const options = reactive({
 
@@ -228,7 +537,21 @@ const options = reactive({
     ]
 })
 let date: '2022-06-01';
-
+let ids: any
+const rotateCamera = async (timestamp: any) => {
+    return new Promise(resolve => {
+        // clamp the rotation between 0 -360 degrees
+        // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
+        map.rotateTo((timestamp / 100) % 360, { duration: 0 });
+        map.setPitch(31.206280407732994)
+        // Request the next frame of the animation.
+        ids = requestAnimationFrame(rotateCamera);
+        setTimeout(() => {
+            cancelAnimationFrame(ids)
+            resolve('resolve')
+        }, 25000)
+    })
+}
 const typewriter = async () => {
     return new Promise((resolve) => {
         let texts: string = textMessage.value
@@ -248,487 +571,63 @@ const typewriter = async () => {
 
 }
 const drawIndex = ref(0)
-const textMessage = ref('9月25日，八路军115师在师长林彪与副师长聂荣臻的带领下在平型关展开了部署')
-const drawSet = [
-    //红军部署
-    {
-        sourceId: 'shizhuli115',
-        layerId: 'shizhuli115',
-        data: staticData.shizhuli115,
-        speed: 200,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': '#ff0000',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    {
-        sourceId: 'shizhuli6851',
-        layerId: 'shizhuli6851',
-        data: staticData.shizhuli6851,
-        speed: 200,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': '#ff0000',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    {
-        sourceId: 'shizhuli6852',
-        layerId: 'shizhuli6852',
-        data: staticData.shizhuli6852,
-        speed: 200,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': '#ff0000',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    {
-        sourceId: 'shizhuli6861',
-        layerId: 'shizhuli6861',
-        data: staticData.shizhuli6861,
-        speed: 200,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': '#ff0000',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    {
-        sourceId: 'shizhuli6863',
-        layerId: 'shizhuli6863',
-        data: staticData.shizhuli6863,
-        speed: 200,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': '#ff0000',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    //日军行进
-    {
-        sourceId: 'rijun21lvxian',
-        layerId: 'rijun21lvxian',
-        data: staticData.rijun21lvxian,
-        speed: 150,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': '#191970',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    {
-        sourceId: 'tuan6865xian',
-        layerId: 'tuan6865xian',
-        data: staticData.tuan6865xian,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': 'red',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    {
-        sourceId: 'tuan6866xian',
-        layerId: 'tuan6866xian',
-        data: staticData.tuan6866xian,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': 'red',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    {
-        sourceId: 'baoweiquanrijun',
-        layerId: 'baoweiquanrijun',
-        data: staticData.baoweiquanrijun,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': '#191970',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    {
-        sourceId: 'baoweiquanhongjun',
-        layerId: 'baoweiquanhongjun',
-        data: staticData.baoweiquanhongjun,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': 'red',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    //蔡家峪
-    {
-        sourceId: 'ricaijia1',
-        layerId: 'ricaijia1',
-        data: staticData.ricaijia1xian,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': '#191970',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-    },
-
-    {
-        sourceId: 'tuan6871xian',
-        layerId: 'tuan6871xian',
-        data: staticData.tuan6871xian,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': 'red',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-
-    {
-        sourceId: 'tuan6875xian',
-        layerId: 'tuan6875xian',
-        data: staticData.tuan6875xian,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': 'red',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-
-    {
-        sourceId: 'tuan6874xian',
-        layerId: 'tuan6874xian',
-        data: staticData.tuan6874xian,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': 'red',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-
-    {
-        sourceId: 'tuan6873xian',
-        layerId: 'tuan6873xian',
-        data: staticData.tuan6873xian,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': 'red',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    {
-        sourceId: 'tuan6873xian2',
-        layerId: 'tuan6873xian2',
-        data: staticData.tuan6873xian2,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': 'red',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    {
-        sourceId: 'tuan6872xian',
-        layerId: 'tuan6872xian',
-        data: staticData.tuan6872xian,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': 'red',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    {
-        sourceId: 'tuan6872xian2',
-        layerId: 'tuan6872xian2',
-        data: staticData.tuan6872xian2,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': 'red',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-
-
-    },
-    {
-        sourceId: 'ricaijia2xian',
-        layerId: 'ricaijia2xian',
-        data: staticData.ricaijia2xian,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': '#191970',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-    },
-
-
-    {
-        sourceId: 'caijiayuquan',
-        layerId: 'caijiayuquan',
-        data: staticData.caijiayuquan,
-        speed: 100,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': 'red',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-    },
-
-    {
-        sourceId: 'rijuntuancheng',
-        layerId: 'rijuntuancheng',
-        data: staticData.rijuntuancheng,
-        speed: 1000,
-        type: 'line',
-
-        layerConfig:
-        {
-            paint: {
-                'line-color': '#191970',
-                'line-width': 8
-            }, layout: {}, filter: []
-
-        },
-    },
-    // {
-    //     sourceId: 'tuan6872xian2',
-    //     layerId: 'tuan6872xian2',
-    //     data: staticData.tuan6872xian2,
-    //     speed: 5,
-    //     type: 'line',
-
-    //     layerConfig:
-    //     {
-    //         paint: {
-    //             'line-color': 'red',
-    //             'line-width': 8
-    //         }, layout: {}, filter: []
-
-    //     },
-    // },
-    // {
-    //     sourceId: 'tuan6872xian2',
-    //     layerId: 'tuan6872xian2',
-    //     data: staticData.tuan6872xian2,
-    //     speed: 5,
-    //     type: 'line',
-
-    //     layerConfig:
-    //     {
-    //         paint: {
-    //             'line-color': 'red',
-    //             'line-width': 8
-    //         }, layout: {}, filter: []
-
-    //     },
-    // },
-
-
-]
-// const PlayOnClick= () => {
-//   ifPause.value = !ifPause.value;
-//   // if(ifPause.value) {
-//   //   autoPlay = setInterval(() => {
-//   //     tabsInfo.value[activeTabIndex]["ifActive"] = false;
-//   //     activeTabIndex = (activeTabIndex+1)%(tabsInfo.value.length)
-//   //     tabsInfo.value[activeTabIndex]["ifActive"] = true;
-//   //   }, 1000);
-//   // }
-//   // else {
-//   //   clearInterval(autoPlay)
-//   // }
-// }
+const textMessage = ref('随着山西省大同市的失守，日军已经逼近了山西的内防线，华北地区情况不容乐观')
 const textValue = ref('gag')
-let newRouteGeoJson: any
-
 const svgXML =
     `<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"> 
                 <path d="M529.6128 512L239.9232 222.4128 384.7168 77.5168 819.2 512 384.7168 946.4832 239.9232 801.5872z" p-id="9085" fill="#ffffff"></path> 
             </svg>
             `
 const svgBase64 = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(svgXML)));
-//闪烁函数
-
-// const flashLayer = (layerid: any) => {
-//     // Set the initial opacity to 0
-//     map?.setPaintProperty(layerid, 'fill-opacity', 0);
-//     console.log(map)
-//     let delta = -0.05
-//     let opacity = 1;
-//     // Define the duration of the flashing effect
-//     const duration = 1500; // in milliseconds
-
-//     // Set up the interval to alternate the layer's opacity
-//     let start = Date.now();
-//     let interval = setInterval(() => {
-//         let timePassed = Date.now() - start;
-//         opacity += delta
-//         //不能设置为0 否则会报错
-//         if (opacity < 0.01 || opacity > 1) {
-//             delta = -delta; // 到达最小或最大值时，逆转透明度的变化方向
-//         }
-//         //let opacity = Math.sin((timePassed / duration) * Math.PI);
-//         map?.setPaintProperty(layerid, 'fill-opacity', opacity);
-//         if (timePassed > duration) {
-//             clearInterval(interval);
-//             map?.setPaintProperty(layerid, 'fill-opacity', 0.8);
-//         }
-//     }, 20);
-// }
 const startClick = () => {
 
     //     //console.log(counter)
 }
-const pauseClick = () => {
-    isPlay = false
-    animate()
+const airplane = ref(false)
+
+
+const audio = ref(null);
+const audio2 = ref(null);
+const audioIndex = ref('/static/大同失守2.mp3')
+const audioFlag = ref(0)
+const playAudio = () => {
+    console.log(audioFlag.value)
+    let dom = audio.value
+    //console.dir(dom);
+    if(dom!=null){
+        (dom as any).play()
+    }
+    
+
+    // data.musicSrc = ''
+}
+const playAudio2 = () => {
+  
+    let dom2 = audio2.value
+    //console.dir(dom);
+    if(dom2!=null){
+        (dom2 as any).play()
+       
+    }
+    
+
+    // data.musicSrc = ''
+}
+const audio3=ref(null)
+const playAudio3 = () => {
+ 
+    let dom3 = audio3.value
+    //console.dir(dom);
+    if(dom3!=null){
+        (dom3 as any).play()
+       
+    }
+    
+
+    // data.musicSrc = ''
 }
 
-const stopClick = () => {
-    isPlay = false
-    counter = 0
-    animate()
-}
+
 const geojsonss = {
     type: "FeatureCollection",
     features: [
@@ -742,53 +641,80 @@ const geojsonss = {
         },
     ],
 };
-
-const geojson = {
-    'type': 'FeatureCollection',
-    'features': [
-        {
-            'type': 'Feature',
-            'properties': {},
-            'geometry': {
-                'coordinates': [
-                    [-73.97003, 40.67264],
-                    [-73.96985, 40.67235],
-                    [-73.96974, 40.67191],
-                    [-73.96972, 40.67175],
-                    [-73.96975, 40.67154],
-                    [-73.96987, 40.67134],
-                    [-73.97015, 40.67117],
-                    [-73.97045, 40.67098],
-                    [-73.97064, 40.67078],
-                    [-73.97091, 40.67038],
-                    [-73.97107, 40.67011],
-                    [-73.97121, 40.66994],
-                    [-73.97149, 40.66969],
-                    [-73.97169, 40.66985],
-                    [-73.97175, 40.66994],
-                    [-73.97191, 40.66998],
-                    [-73.97206, 40.66998],
-                    [-73.97228, 40.67008]
-                ],
-                'type': 'LineString'
-            }
+const zhanqianFlag = ref(false)
+const zhanqianbushu = async () => {
+    if (zhanqianFlag.value == false) {
+        zhanqianFlag.value = true
+    }
+    rePlayFlag.value = 'zhanqian'
+    hasReSet.value = true
+    map.easeTo({
+        center: [113.975862799999, 39.329949959999],
+        pitch: 47,
+        bearing: -67.9999999999,
+        zoom: 13.34,
+        duration: 1000, // 缓动动画的时间
+        easing: function (t: any) { // 缓动函数
+            return t;
         }
-    ]
-};
+    });
+    await sleep(1000)
+
+    removeLayer('chufadian', 'chufadian')
+    removeLayer('shizhuli115', 'shizhuli115')
+    removeLayer('shizhuli6851', 'shizhuli6851')
+    removeLayer('shizhuli6852', 'shizhuli6852')
+    removeLayer('shizhuli6861', 'shizhuli6861')
+    removeLayer('shizhuli6863', 'shizhuli6863')
+    await sleep(2000)
+    asyncAddLayer('chufadian', 'chufadian', staticData.chufadian, 'line', 1000,
+    {
+        paint: {
+            'line-color': '#ff0000',
+            'line-width': 8
+        }, layout: {}, filter: []
+
+    },map)
+
+    for (let i = 2; i < 7; i++) {
+        await dyDrawTest()
+    }
+    await asyncAddLayer('linesDes', 'linesDes', staticData.line3des, 'symbol',1000,
+        {
+            layout: {
+                'text-field': ['get', 'description'],
+                'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                'text-size': 35,
+                'text-offset': [0, 0.6],
+                'text-anchor': 'top'
+            },
+            paint: {
+                'text-color': 'red',
+                'text-halo-color': '#000000',
+                'text-halo-width': 2,
+                'text-opacity': 0.8
+            }
+        },map)
+    zhanqianFlag.value = false
+
+
+}
+
 const initMap = async () => {
 
     mapboxgl.accessToken =
         "pk.eyJ1IjoiMTY2NTE2OTkzNzYiLCJhIjoiY2ttMDh5amJpMHE2dzJ3cTd5eWZsMGQxZyJ9.XErH3kSOuRC_OWXWCpDLkQ";
     map = new mapboxgl.Map({
         container: 'map',
-        zoom: 11.370078472807089,
-        center: [113.9793012280939, 39.353238498150944],
-        pitch: 6.499999999999999,
+        zoom: 5.898936707180018,
+        center: [109.66294936881894, 38.33825450310795],
+        pitch: 6.343045841856863,
         bearing: 0,
         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-        //style: 'mapbox://styles/mapbox/outdoors-v12'
-        style: 'mapbox://styles/mapbox/satellite-streets-v10', // style URL
-        //style: 'http://172.21.212.168:8899/mapProject/getPublishedMap/6436b83d7be541574d7b1d94'
+        //style: 'http://localhost:3000/taiwan_source/taiwan_jian_liberty_reverse.json'
+        style: 'mapbox://styles/mapbox/satellite-v9', // style URL
+        //style:'mapbox://styles/mapbox/outdoors-v12'
+        //style: 'http://172.21.212.168:8899/mapProject/getPublishedMap/646331f7c1a2a11336ca3806'
     });
     map.on("mousemove", (e: any) => {
 
@@ -817,290 +743,47 @@ const initMap = async () => {
     });
 
 
+
     map.on('load', async () => {
-
-
-        const setImage = async () => {
-
-            return new Promise(resolve => {
-
-                map.addSource('images', {
-                    type: "image",
-                    url: `http://localhost:8060/getImage?name=wars`,
-                    coordinates:
-                        [
-                            [113.91345, 39.40586],
-                            [114.02812, 39.37383],
-                            [113.947875, 39.27091],
-                            [113.81328, 39.30673],
-                        ],
-                });
-                // [113.93351, 39.48148],
-                //     [114.06333, 39.4708],
-                //     [113.98508, 39.30845],
-                //     [113.85263,39.35719],
-                // [113.90439, 39.30814],
-                //     [113.99397, 39.30814],
-                //     [113.99397, 39.20993],
-                //     [113.90439, 39.20993],
-                map.addLayer({
-                    id: 'imageWar',
-                    type: "raster",
-                    source: 'images',
-
-                    //   'raster-resampling': 'nearest',
-                    //   'raster-translate': [0, 0, 3000], 
-                    //   'raster-translate-anchor': 'map'
-                    paint: {
-                        'raster-opacity': 0,
-
-                    }
-                });
-                //map?.setPaintProperty('imageWar', 'fill-opacity', 0);
-                let opacity = 0;
-
-                const interval = setInterval(() => {
-                    if (opacity < 0.99) {
-                        opacity = opacity + 0.01
-                        //map?.setPaintProperty('imageWar', 'raster-opacity', opacity);
-                    }
-                    else {
-                        clearInterval(interval)
-                        resolve('resolve')
-                        return
-                    }
-                }, 20)
-
-
-            })
-        }
-
-
-        // addLayer('source', 'mylayer2', staticData.rijun21lv, 'fill', {
-        //     paint: {
-        //         'fill-color': 'red',
-        //         'fill-opacity': 1
-        //     }, layout: {}, filter: []
-        // })
-
-        const dyDraw1 = () => {
-            const testgeoj = {
-                'type': 'FeatureCollection',
-                'features': [
-                    {
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'LineString',
-                            'coordinates': []
-                        }
-                    }
-                ]
-            };
-            //staticData.rijun21lvxian
-            map.addSource('source', {
-                type: 'geojson',
-                data: testgeoj
-            });
-            map.addLayer({
-                id: 'mylayer2',
-                type: 'line',
-                source: 'source',
-                paint: {
-                    'line-color': '#ff0000',
-                    'line-width': 5
-                }
-            });
-            let counter = 0;
-
-            map.easeTo({
-                center: staticData.tuan6872xian.geometry.coordinates[0],
-                pitch: 55.5,
-                bearing: 10.26619,
-                duration: 1000, // 缓动动画的时间
-                easing: function (t: any) { // 缓动函数
-                    return t;
-                }
-            });
-
-            const timeout = setTimeout(() => {
-                const timer1 = setInterval(() => {
-                    if (counter >= staticData.tuan6872xian.geometry.coordinates.length) {
-                        clearInterval(timer1)
-                        clearTimeout(timeout)
-                        return
-                    }
-
-                    (testgeoj.features[0].geometry.coordinates as number[][]).push(staticData.tuan6872xian.geometry.coordinates[counter]);
-                    //map.setCenter(staticData.tuan6872xian.geometry.coordinates[counter]);
-                    map.getSource('source').setData(testgeoj);
-                    counter++;
-                }, 20);
-            }, 1500)
-
-
-        }
-        const dyDraw = (sourceId: string, layerId: string, data: any, index: number, type: string, layerConfig?: any) => {
-            const testgeoj = {
-                'type': 'FeatureCollection',
-                'features': [
-                    {
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'LineString',
-                            'coordinates': []
-                        }
-                    }
-                ]
-            };
-            //staticData.rijun21lvxian
-            map.addSource(sourceId, {
-                type: 'geojson',
-                data: testgeoj
-            });
-            map.addLayer({
-                id: layerId,
-                type: type,
-                source: sourceId,
-                paint: layerConfig?.paint,
-                layout: layerConfig?.layout,
-            })
-
-            let counter = 0;
-            const timer = setInterval(() => {
-
-                if (counter >= data.geometry.coordinates.length) {
-                    clearInterval(timer)
-                    //setTimeout(dyDraw1, 20)
-                    return
-                };
-                (testgeoj.features[0].geometry.coordinates as number[][]).push(data.geometry.coordinates[counter]);
-                //map.setCenter(staticData.tuan6871xian.geometry.coordinates[counter]);
-                map.getSource(sourceId).setData(testgeoj);
-                counter++;
-            }, 300);
-            //clearInterval(timer2)
-        }
-        const dyDrawTest = async () => {
-
-
-            return new Promise(resolve => {
-
-                let testgeoj = {
-                    'type': 'FeatureCollection',
-                    'features': [
-                        {
-                            'type': 'Feature',
-                            'geometry': {
-                                'type': 'LineString',
-                                'coordinates': []
-                            }
-                        }
-                    ]
-                };
-                //staticData.rijun21lvxian
-                map.addSource(drawSet[drawIndex.value]?.sourceId, {
-                    type: 'geojson',
-                    data: testgeoj
-                });
-                map.addLayer({
-                    id: drawSet[drawIndex.value]?.layerId,
-                    type: drawSet[drawIndex.value].type,
-                    source: drawSet[drawIndex.value].sourceId,
-                    paint: drawSet[drawIndex.value].layerConfig?.paint,
-                    layout: drawSet[drawIndex.value].layerConfig?.layout,
-                })
-                let counter = 0;
-                const timer = setInterval(() => {
-                    if (counter >= drawSet[drawIndex.value].data.geometry.coordinates.length) {
-                        clearInterval(timer)
-                        //setTimeout(dyDraw1, 20)
-                        drawIndex.value++
-                        map?.setPaintProperty(drawSet[drawIndex.value - 1]?.layerId, 'line-opacity', 0.4);
-                        resolve("resolve")
-
-                        // if (drawIndex.value <= drawSet.length) {
-
-                        //     setTimeout(dyDrawTest, 200)
-
-
-                        // }
-                        //else
-                        return
-                    };
-                    (testgeoj.features[0].geometry.coordinates as any).push(drawSet[drawIndex.value]?.data.geometry.coordinates[counter]);
-                    //map.setCenter(staticData.tuan6871xian.geometry.coordinates[counter]);
-                    map.getSource(drawSet[drawIndex.value]?.sourceId)?.setData(testgeoj);
-                    counter++;
-                }, drawSet[drawIndex.value]?.speed);
-                //clearInterval(timer2)
-
-
-            })
-        }
-        const dyDraw2 = () => {
-            const testgeoj = {
-                'type': 'FeatureCollection',
-                'features': [
-                    {
-                        'type': 'Feature',
-                        'geometry': {
-                            'type': 'LineString',
-                            'coordinates': []
-                        }
-                    }
-                ]
-            };
-            //staticData.rijun21lvxian
-            map.addSource('source2', {
-                type: 'geojson',
-                data: testgeoj
-            });
-
-            map.addLayer({
-                id: 'mylayer3',
-                type: 'line',
-                source: 'source2',
-                paint: {
-                    'line-color': '#ff0000',
-                    'line-width': 8
-                }
-            });
-
-            let counter = 0;
-            const timer2 = setInterval(() => {
-
-                if (counter >= staticData.tuan6871xian.geometry.coordinates.length) {
-                    clearInterval(timer2)
-                    setTimeout(dyDraw1, 20)
-                    return
-                };
-                (testgeoj.features[0].geometry.coordinates as number[][]).push(staticData.tuan6871xian.geometry.coordinates[counter]);
-                map.setCenter(staticData.tuan6871xian.geometry.coordinates[counter]);
-                map.getSource('source2').setData(testgeoj);
-                counter++;
-            }, 20);
-            //clearInterval(timer2)
-        }
-
-
-
-        // 绘制第一条线
-        // dyDraw2();
-
-
-        //     // 绘制第一条线
-        //     setTimeout(dyDraw1, 3000);
-        // 绘制第二条线
+        // map.addSource('basemap', {
+        //     type: "raster",
+        //     //tiles: [`${prefix}visual/ObliqueImage/{x}/{y}/{z}`],
+        //     tiles: [`http://gac-geo.googlecnapps.cn/maps/vt?lyrs=s&x={x}&y={y}&z={z}`],
+        //   });
+        //   map.addLayer({
+        //     id: 'basemap',
+        //     type: "raster",
+        //     source: 'basemap',
+        //   });
         task.value = [
             //红军部署
             async () => {
-              
+                ex1.value=''
+                ex2.value=''
+                ex3.value=''
+                ex4.value=''
+                ex5.value=''
+                playAudio2()
+                //await sleep(1000)
+                playAudio()
+                map.easeTo({
+                    center: [113.18883047209192, 38.46825060280423],
+                    pitch: 28.343045841856856,
+                    bearing: -73.6000000000003,
+                    zoom: 8.509009513393568,
+                    duration: 2000, // 缓动动画的时间
+                    easing: function (t: any) { // 缓动函数
+                        return t;
+                    }
+                });
+                textMessage.value = '随着山西省大同市的失守，日军已经逼近了山西的内防线，华北地区情况不容乐观'
+               
+                typewriter()
+                await sleep(500)
+                ex1.value='black'
+                textIntroFlag.value=1
 
-                await setImage()
-                //map?.setPaintProperty('imageWar', 'raster-opacity', 0);
-                imageShow.value = false
-
-                await asyncAddLayer('places', 'places-labels', staticData.pointsImp, 'symbol',
+                await asyncAddLayer('warpre', 'warpre', staticData.warpre, 'symbol',100,
                     {
                         layout: {
                             'text-field': ['get', 'description'],
@@ -1115,7 +798,133 @@ const initMap = async () => {
                             'text-halo-width': 2,
                             'text-opacity': 0.8
                         }
-                    })
+                    },map)
+
+
+                //playAudio()
+                await sleep(2000)
+                ex2.value='rgb(0,0,255)'
+                for (const marker of staticData.warpre.features) {
+                    const el = document.createElement("div");
+                    el.className = "marker";
+                    el.style.backgroundImage =
+                        "url(http://localhost:8060/getImage?name=pingxing)"
+                    el.style.width = "50px";
+                    el.style.height = "50px";
+                    el.style.backgroundSize = "100%";
+                    // Add markers to the map.
+                    new mapboxgl.Marker(el)
+                        .setLngLat(marker.geometry.coordinates as any)
+                        .addTo(map);
+                }
+
+                //大同到灵丘
+                await dyDrawTest()
+                ex3.value='red'
+                // await asyncAddLayer('datong2lingqiu', 'datong2lingqiu', staticData.datong2lingqiu, 'fill',1000,
+                //     {
+                //         paint: {
+                //             'fill-color': '#191970',
+                //             'fill-opacity': 1,
+                //         }, layout: {}, filter: []
+                //     },map)
+                textMessage.value = '只要突破了平行关，日军即可沿着平坦宽阔的的河谷地带，直插整个山西的要害——太原'
+                typewriter()
+                await sleep(200)
+                audioIndex.value = '/static/只要突破2.mp3'
+                audioFlag.value = 1
+                await sleep(1000)
+                playAudio()
+              
+                
+                await sleep(1000)
+                
+                //平型到太原
+                await asyncAddLayer('warpre2', 'warpre2', staticData.warpre2, 'symbol',1000,
+                    {
+                        layout: {
+                            'text-field': ['get', 'description'],
+                            'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                            'text-size': 45,
+                            'text-offset': [0, 1],
+                            'text-anchor': 'top'
+                        },
+                        paint: {
+                            'text-color': '#FF8000',
+                            'text-halo-color': '#000000',
+                            'text-halo-width': 2,
+                            'text-opacity': 0.8
+                        }
+                    },map)
+                await dyDrawTest()
+                await asyncAddLayer('ping2taiyuan', 'ping2taiyuan', staticData.ping2taiyuan, 'fill',1000,
+                    {
+                        paint: {
+                            'fill-color': '#191970',
+                            'fill-opacity': 1,
+                        }, layout: {}, filter: []
+                    },map)
+                textMessage.value = '1937年9月23日，阎锡山策划25日以3个师的兵力，出长城合围平型关下的日军，歼灭日军于关外'
+                typewriter()
+                ex4.value='green'
+                audioIndex.value = '/static/19372.mp3'
+                audioFlag.value = 2
+                //让浏览器缓一缓
+                await sleep(200)
+                playAudio()
+                await sleep(1000)
+                map.easeTo({
+                    zoom: 11.370078472807089,
+                    center: [113.9793012280939, 39.353238498150944],
+                    pitch: 6.499999999999999,
+                    bearing: 0,
+                    duration: 1000, // 缓动动画的时间
+                    easing: function (t: any) { // 缓动函数
+                        return t;
+                    }
+                })
+                await asyncAddLayer('pingxingfanwei', 'pingxingfanwei', staticData.pingxingfanwei, 'line',1000,
+
+                    {
+                        paint: {
+                            'line-color': 'red',
+                            'line-width': 12,
+                        }, layout: {}, filter: []
+                    },map)
+                // map.easeTo({
+                //     zoom: 11.370078472807089,
+                //     center: [113.9793012280939, 39.353238498150944],
+                //     pitch: 6.499999999999999,
+                //     bearing: 0,
+                //     duration: 1000, // 缓动动画的时间
+                //     easing: function (t: any) { // 缓动函数
+                //         return t;
+                //     }
+                // })
+                await sleep(3000)
+                zonglan.value = true
+                await sleep(5000)
+                zonglan.value = false
+                imageShow.value = false
+                ex5.value='yellow'
+
+
+                await asyncAddLayer('places', 'places-labels', staticData.pointsImp, 'symbol',1000,
+                    {
+                        layout: {
+                            'text-field': ['get', 'description'],
+                            'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                            'text-size': 35,
+                            'text-offset': [0, 0.6],
+                            'text-anchor': 'top'
+                        },
+                        paint: {
+                            'text-color': '#ffffff',
+                            'text-halo-color': '#000000',
+                            'text-halo-width': 2,
+                            'text-opacity': 0.8
+                        }
+                    },map)
                 for (const marker of staticData.pointsImp.features) {
                     const el = document.createElement("div");
                     el.className = "marker";
@@ -1140,7 +949,7 @@ const initMap = async () => {
                         return t;
                     }
                 });
-                addLayer('chufadian', 'chufadian', staticData.chufadian, 'line', {
+                addLayer(map,'chufadian', 'chufadian', staticData.chufadian, 'line', {
                     paint: {
                         'line-color': '#ff0000',
                         'line-width': 8
@@ -1148,23 +957,60 @@ const initMap = async () => {
 
                 })
                 thumImage.value = 'http://localhost:8060/getImage?name=all-check-hong'
+                await sleep(500)
                 map?.setPaintProperty('chufadian', 'line-opacity', 0.4);
-                textMessage.value = '115师兵分三路，343旅之685团由杨得志率领,686团由杨勇率领埋伏于10里长沟。'
-                await typewriter()
-                for (let i = 0; i < 5; i++) {
+                audioIndex.value = '/static/大战开始2.mp3'
+                audioFlag.value = 3
+                //让浏览器缓一缓
+                await sleep(200)
+                playAudio()
+                await sleep(1000)
+                textMessage.value = '大战开始，115师兵分三路，343旅之685团由杨得志率领,686团由杨勇率领埋伏于10里长沟。'
+                typewriter()
+
+                await sleep(200)
+                for (let i = 2; i < 7; i++) {
                     await dyDrawTest()
                 }
-                // await dyDrawTest()
-                // console.log("Guagua")
-                // await dyDrawTest()
-                // console.log("haha")
+                await asyncAddLayer('linesDes', 'linesDes', staticData.line3des, 'symbol',1000,
+                    {
+                        layout: {
+                            'text-field': ['get', 'description'],
+                            'text-font': ['Open Sans Semibold', 'Arial Unicode MS Bold'],
+                            'text-size': 35,
+                            'text-offset': [0, 0.6],
+                            'text-anchor': 'top'
+                        },
+                        paint: {
+                            'text-color': 'red',
+                            'text-halo-color': '#000000',
+                            'text-halo-width': 2,
+                            'text-opacity': 0.8
+                        }
+                    },map)
+
+                await sleep(1000)
             },
             async () => {
-
+                textIntroFlag.value=2
+                ex1.value=''
+                ex2.value=''
+                ex3.value=''
+                ex4.value=''
+                ex5.value=''
+                textTitle.value='包围'
                 textMessage.value = '1937年9月25日晨，日军第5师第21旅一部和大批辎重车辆，沿灵丘至平型关公路西进。7时许，全部进入第115师设伏地域。'
 
                 await typewriter()
+                //textGif.value = './static/222slow.gif'
+                audioIndex.value = '/static/日军行进2.mp3'
+                audioFlag.value = 4
+                //让浏览器缓一缓
+                await sleep(200)
+                ex1.value='black'
+                playAudio()
                 //await dyDrawTest()
+                await sleep(2000)
                 // dyDrawTest();
                 map.easeTo({
                     center: [113.96645215857234, 39.361178424920865],
@@ -1177,17 +1023,33 @@ const initMap = async () => {
                     }
                 });
                 thumImage.value = 'http://localhost:8060/getImage?name=all-check-ri'
-                
-                
-                await dyDrawTest()
-
-                await asyncAddLayer('rijun21lv', 'rijun21lv', staticData.rijun21lv, 'fill',
+                await sleep(500)
+                map.easeTo({
+                    center: staticData.rijun21lvxian.geometry.coordinates[0],
+                    pitch: 0,
+                    bearing: 0,
+                    zoom: 14.133200956626503,
+                    duration: 1000, // 缓动动画的时间
+                    easing: function (t: any) { // 缓动函数
+                        return t;
+                    }
+                });
+                //console.log(drawIndex.value)
+                addLayer(map,'rijun21lvxian', 'rijun21lvxian', staticData.rijun21lvxian, 'line', { paint: { 'line-color': '#191970', 'line-width': 13 }, layout: {}, filter: [] })
+                await sleep(1000)
+                ex2.value='rgb(0,0,255)'
+                await asyncAddLayer('rijun21lv', 'rijun21lv', staticData.rijun21lv, 'fill',200,
                     {
                         paint: {
                             'fill-color': '#191970',
                             'fill-opacity': 1,
                         }, layout: {}, filter: []
-                    })
+                    },map)
+                //await dyDrawTest()
+                await cameraAlong(staticData.rijun21lvxian.geometry.coordinates,map)
+
+             
+
                 map?.setPaintProperty('rijun21lv', 'fill-opacity', 0.4);
 
                 let popup4 = new mapboxgl.Popup({ offset: 25, })
@@ -1206,6 +1068,8 @@ const initMap = async () => {
                         return t;
                     }
                 });
+                ex3.value='red'
+               
                 thumImage.value = 'http://localhost:8060/getImage?name=all-check-weigong'
                 map.easeTo({
                     center: [113.95007145232819, 39.340621294206585],
@@ -1218,37 +1082,54 @@ const initMap = async () => {
                     }
                 });
                 await sleep(2000)
-                textMessage.value = '由于道路狭窄，雨后路面泥泞，其车辆人马拥挤堵塞，行动缓慢,第115师立即抓住有利战机，发起冲击,第685团迎头截击，歼日军一部。'
-               
+                textMessage.value = '由于道路狭窄，雨后路面泥泞，其车辆人马拥挤堵塞，行动缓慢,第115师立即抓住有利战机，发起冲击。'
                 typewriter()
-                await asyncAddLayer('tuan6851', 'tuan6851', staticData.tuan6851, 'fill',
+                audioIndex.value = '/static/道路狭窄2.mp3'
+                audioFlag.value = 5
+             
+                //让浏览器缓一缓
+                await sleep(200)
+                playAudio()
+                await sleep(3000)
+                await asyncAddLayer('tuan6851', 'tuan6851', staticData.tuan6851, 'fill',1500,
                     {
                         paint: {
                             'fill-color': '#ff0000',
                             'fill-opacity': 1,
                         }, layout: {}, filter: []
-                    })
+                    },map)
                 flashLayer('tuan6851', map)
                 map?.setPaintProperty('tuan6851', 'fill-opacity', 0.4);
 
 
-                await asyncAddLayer('tuan6852', 'tuan6852', staticData.tuan6852, 'fill',
+                await asyncAddLayer('tuan6852', 'tuan6852', staticData.tuan6852, 'fill',1500,
                     {
                         paint: {
                             'fill-color': '#ff0000',
                             'fill-opacity': 1,
                         }, layout: {}, filter: []
-                    })
+                    },map)
                 flashLayer('tuan6852', map)
+                ex4.value='green'
                 map?.setPaintProperty('tuan6852', 'fill-opacity', 0.4);
-                await asyncAddLayer('tuan6853', 'tuan6853', staticData.tuan6853, 'fill',
+                await asyncAddLayer('tuan6853', 'tuan6853', staticData.tuan6853, 'fill',1500,
                     {
                         paint: {
                             'fill-color': '#ff0000',
                             'fill-opacity': 1,
                         }, layout: {}, filter: []
-                    })
+                    },map)
                 flashLayer('tuan6853', map)
+                await sleep(1000)
+                textMessage.value = '第685团迎头截击，歼日军一部。'
+                typewriter()
+                audioIndex.value = '/static/迎头痛击2.mp3'
+                audioFlag.value = 6
+                //让浏览器缓一缓
+                await sleep(200)
+                playAudio()
+                await sleep(1000)
+                ex5.value='yellow'
                 map?.setPaintProperty('tuan6853', 'fill-opacity', 0.4);
 
                 let popup1 = new mapboxgl.Popup({ offset: 25, })
@@ -1267,38 +1148,17 @@ const initMap = async () => {
                 });
 
             },
-            // () => {
-            //     addLayer('tuan6872xian', 'tuan6872xian', staticData.tuan6872xian2, 'line',
-            //         {
-            //             paint: {
-            //                 'line-color': '#ff0000',
-            //                 'line-width': 8
-            //             }, layout: {}, filter: []
-            //         })
-            // },
             async () => {
-
-                // await asyncAddLayer('tuan6872', 'tuan6872', staticData.tuan6872, 'fill',
-                //     {
-                //         paint: {
-                //             'fill-color': '#ff0000',
-                //             'fill-opacity': 1,
-                //         }, layout: {}, filter: []
-                //     })
-
-
             },
             //686团进攻
             async () => {
-
-
-                await asyncAddLayer('tuan686summian', 'tuan686summian', staticData.tuan686summian, 'fill',
+                await asyncAddLayer('tuan686summian', 'tuan686summian', staticData.tuan686summian, 'fill',1000,
                     {
                         paint: {
                             'fill-color': '#ff0000',
                             'fill-opacity': 0,
                         }, layout: {}, filter: []
-                    })
+                    },map)
 
                 flashLayer('tuan686summian', map)
                 map?.setPaintProperty('tuan686summian', 'fill-opacity', 0.4);
@@ -1306,53 +1166,88 @@ const initMap = async () => {
                     .setLngLat([113.97414, 39.34887])
                     .setHTML('<h1 style=";color:red;">八路军115师686团</h1>')
                     .addTo(map);
-                    await sleep(2000)
+                await sleep(2000)
                 textMessage.value = '日军其中一部企图抢占老爷庙高地，掩护突围。第686团迅速冲过公路，先敌占领老爷庙，以此对日军构成两面夹击之势。'
-               
+
                 typewriter()
-                
+                audioIndex.value = '/static/先敌占领2.mp3'
+                audioFlag.value = 7
+                //让浏览器缓一缓
+                await sleep(200)
+                playAudio()
+                await sleep(1000)
                 //tuan6865
                 await dyDrawTest()
-                
                 //tuan6866
                 await dyDrawTest()
-                await asyncAddLayer('tuan6864', 'tuan6864', staticData.tuan6864, 'fill',
+                await asyncAddLayer('tuan6864', 'tuan6864', staticData.tuan6864, 'fill',1000,
                     {
                         paint: {
                             'fill-color': '#ff0000',
                             'fill-opacity': 0,
                         }, layout: {}, filter: []
-                    })
+                    },map)
                 map?.setPaintProperty('tuan6864', 'fill-opacity', 0.4);
                 let popup3 = new mapboxgl.Popup({ offset: 25, })
                     .setLngLat([113.95526, 39.36343])
                     .setHTML('<h1 style=";color:red;">八路军115师686团</h1>')
                     .addTo(map);
                 flashLayer('tuan6864', map)
+                map.easeTo({
+                    center: [113.95944018637402, 39.34464163187076],
+                    pitch: 0,
+                    bearing: 21.59999999999968,
+                    zoom: 13.265321822909323,
+                    duration: 2000, // 缓动动画的时间
+                    easing: function (t: any) { // 缓动函数
+                        return t;
+                    }
+                });
                 //日军包围圈
                 await dyDrawTest()
+                airplane.value = true
+                gifFlag.value=true
+                boomFlag.value=true
+                await sleep(500)
+                playAudio3()
                 //红军
-
-
-
-
                 await dyDrawTest()
+                airplane.value = false
+                gifFlag.value=false
+                boomFlag.value=false
+                await sleep(1000)
+                
             },
             //蔡家峪进攻
             async () => {
+                ex1.value=''
+                ex2.value=''
+                ex3.value=''
+                ex4.value=''
+                ex5.value=''
                 thumImage.value = 'http://localhost:8060/getImage?name=all-check-caijia'
                 map.easeTo({
-                    center: [114.009415302963657, 39.37624113087841],
-                    pitch: 52.760330578511265,
+                    center: [114.013786047096, 39.370113660992416],
+                    pitch: 0,
                     bearing: -3.4432812988264914,
-                    zoom: 13.618326882349534,
+                    zoom: 13.662795415152122,
                     duration: 1000, // 缓动动画的时间
                     easing: function (t: any) { // 缓动函数
                         return t;
                     }
                 });
-                textMessage.value = '日军第5师师长板垣征四郎急令其在蔚县、涞源的部队速向平型关增援，又被第115师独立团、骑兵营阻击于灵丘以北和以东地区'
+                ex1.value='black'
+                textIntroFlag.value=3
+                textTitle.value='阻击'
+                textMessage.value = '日军第5师师长板垣征四郎急令其在蔚县、涞源的部队速向平型关增援，又被第115师阻击于灵丘以北和以东地区'
                 typewriter()
+                //textGif.value = './static/333slow.gif'
+                audioIndex.value = '/static/日军求援2.mp3'
+                audioFlag.value = 8
+                //让浏览器缓一缓
+                await sleep(200)
+                playAudio()
+                await sleep(1000)
                 //ricaijia1
                 await dyDrawTest()
                 let popup5 = new mapboxgl.Popup({ offset: 25, })
@@ -1361,6 +1256,7 @@ const initMap = async () => {
                     .addTo(map);
                 //tuan6871xian
                 await dyDrawTest()
+                ex2.value='rgb(0,0,255)'
                 //tuan6875xian
                 await dyDrawTest()
                 //tuan6874xian
@@ -1369,14 +1265,15 @@ const initMap = async () => {
                 await dyDrawTest()
                 //tuan6873xian2
                 await dyDrawTest()
+                ex3.value='red'
                 //tuan6873
-                await asyncAddLayer('tuan6873', 'tuan6873', staticData.tuan6873, 'fill',
+                await asyncAddLayer('tuan6873', 'tuan6873', staticData.tuan6873, 'fill',1000,
                     {
                         paint: {
                             'fill-color': 'red',
                             'fill-opacity': 1,
                         }, layout: {}, filter: []
-                    })
+                    },map)
                 flashLayer('tuan6873', map)
                 map?.setPaintProperty('tuan6873', 'fill-opacity', 0.4);
 
@@ -1385,59 +1282,81 @@ const initMap = async () => {
                     .setLngLat([114.00728, 39.36636])
                     .setHTML('<h1 style=";color:red;">八路军115师687团</h1>')
                     .addTo(map);
+                removeLayer('linesDes', 'linesDes')
                 //tuan6872xian
                 await dyDrawTest()
                 //tuan6872xian2
                 await dyDrawTest()
                 ///tuan6872
-                await asyncAddLayer('tuan6872', 'tuan6872', staticData.tuan6872, 'fill',
+                await asyncAddLayer('tuan6872', 'tuan6872', staticData.tuan6872, 'fill',1000,
                     {
                         paint: {
                             'fill-color': 'red',
                             'fill-opacity': 1,
                         }, layout: {}, filter: []
-                    })
+                    },map)
                 flashLayer('tuan6872', map)
                 map?.setPaintProperty('tuan6872', 'fill-opacity', 0.4);
+                map.easeTo({
+                    center: [114.00905586184763, 39.37955581507637],
+                    pitch: 0,
+                    bearing: 0,
+                    zoom: 13.586005216860592,
+                    duration: 1000, // 缓动动画的时间
+                    easing: function (t: any) { // 缓动函数
+                        return t;
+                    }
+                });
                 //ricaijia2
                 await dyDrawTest()
+                textMessage.value = '687团与独立团阻击日军增援部队于韩家湾地区，并爆发了小规模战争，直至28日，日军再度进入乔沟'
+                typewriter()
+                ex4.value='green'
+                audioIndex.value = '/static/独立阻击2.mp3'
+                audioFlag.value = 9
+                //让浏览器缓一缓
+                await sleep(200)
+                playAudio()
+                await sleep(1000)
                 //caijia687zuo
-                await asyncAddLayer('caijia687zuo', 'caijia687zuo', staticData.caijia687zuo, 'fill',
+                await asyncAddLayer('caijia687zuo', 'caijia687zuo', staticData.caijia687zuo, 'fill',1000,
                     {
                         paint: {
                             'fill-color': 'red',
                             'fill-opacity': 1,
                         }, layout: {}, filter: []
-                    })
+                    },map)
                 flashLayer('caijia687zuo', map)
                 map?.setPaintProperty('caijia687zuo', 'fill-opacity', 0.4);
                 //caijia687you
-                await asyncAddLayer('caijia687you', 'caijia687you', staticData.caijia687you, 'fill',
+                await asyncAddLayer('caijia687you', 'caijia687you', staticData.caijia687you, 'fill',1000,
                     {
                         paint: {
                             'fill-color': 'red',
                             'fill-opacity': 1,
                         }, layout: {}, filter: []
-                    })
+                    },map)
                 flashLayer('caijia687you', map)
+                ex5.value='yellow'
                 map?.setPaintProperty('caijia687you', 'fill-opacity', 0.4);
-                
+
 
                 //caijiayuquan
                 await dyDrawTest()
                 thumImage.value = 'http://localhost:8060/getImage?name=all-check-run'
-               
+
 
 
                 //videoOn.value = true
-                await asyncAddLayer('bridgeIntro', 'bridgeIntro', geojsonss, 'circle',
+                await asyncAddLayer('bridgeIntro', 'bridgeIntro', geojsonss, 'circle', 500 ,
                     {
                         paint: {
                             'circle-color': 'red',
                             'circle-radius': 30,
                         },
                         layout: {}, filter: []
-                    })
+                    },map)
+                
                 map.easeTo({
                     center: [113.955570760797, 39.34130385967589],
                     pitch: 65.76033057851129,
@@ -1448,14 +1367,61 @@ const initMap = async () => {
                         return t;
                     }
                 });
+                ex1.value=''
+                ex2.value=''
+                ex3.value=''
+                ex4.value=''
+                ex5.value=''
+                textIntroFlag.value=4
+                textTitle.value='反扑'
                 textMessage.value = '在老爷庙地区，日军与八路军发生了了空前惨烈的白刃战，日军死伤惨重'
                 typewriter()
+                //textGif.value = './static/444slow.gif'
+                audioIndex.value = '/static/老爷庙2.mp3'
+                audioFlag.value = 10
+                //让浏览器缓一缓
+                await sleep(200)
+                ex1.value='black'
+                playAudio()
+                await sleep(1000)
+                map.addSource('images', {
+                    type: "image",
+                    url: `http://localhost:8060/getImage?name=04332`,
+                    coordinates:
+                    [
+                            [113.815, 39.448],
+                            [114.056, 39.448],
+                            [114.056, 39.207],
+                            [113.815, 39.207],
+                        ],
+                });
+                // [113.93351, 39.48148],
+                //     [114.06333, 39.4708],
+                //     [113.98508, 39.30845],
+                //     [113.85263,39.35719],
+                // [113.90439, 39.30814],
+                //     [113.99397, 39.30814],
+                //     [113.99397, 39.20993],
+                //     [113.90439, 39.20993],
+                map.addLayer({
+                    id: 'imageWar',
+                    type: "raster",
+                    source: 'images',
 
+                    //   'raster-resampling': 'nearest',
+                    //   'raster-translate': [0, 0, 3000], 
+                    //   'raster-translate-anchor': 'map'
+                    paint: {
+                        'raster-opacity': 0.5,
+
+                    }
+                });
                 let tick = 1.0
                 setInterval(() => {
                     map.setPaintProperty('bridgeIntro', 'circle-blur', 0.6 + tick / 5);
                     tick = (tick + 1.0) % 10;
                 }, 20);
+                ex2.value='rgb(0,0,255)'
                 //videoOn.value = true
                 const content = `    <div   style="width:100%;height: 100%;;"><video style="width:100%;height: 100%" autoplay preload  muted>
 <source src="../../laoye.mp4"type="video/mp4">
@@ -1464,14 +1430,27 @@ const initMap = async () => {
                 //         <div>
                 //             <el-button type="danger" :icon="CloseBold"  @click="overVideo" />
                 //         </div>
-
-                let popup10 = new mapboxgl.Popup({ offset: 30, maxWidth: '44vw', maxHeight: '38vh', anchor: 'top', autoClose: 25000, closeOnClick: false })
-                    .setLngLat([113.95404, 39.34311])
-                    .setHTML(content)
-                    .addTo(map);
-                await dyDrawTest()
                 map.easeTo({
-                    center: [113.96210534596526, 39.34361926956976],
+                    center: [113.95316992113567, 39.343012813407086],
+                    pitch: 0,
+                    bearing: 0,
+                    zoom: 16.569294887091626,
+                    duration: 1000, // 缓动动画的时间
+                    easing: function (t: any) { // 缓动函数
+                        return t;
+                    }
+                });
+                ex3.value='red'
+                await sleep(1000)
+                videoOn.value = true
+                await rotateCamera(0)
+                videoOn.value = false
+                // let popup10 = new mapboxgl.Popup({ offset: 30, maxWidth: '44vw', maxHeight: '38vh', anchor: 'top', autoClose: 25000, closeOnClick: false })
+                //     .setLngLat([113.95404, 39.34311])
+                //     .setHTML(content)
+                //     .addTo(map);
+                map.easeTo({
+                    center: [113.92299880899526, 39.340844556285106],
                     pitch: 34.26033057851127,
                     bearing: -19.999999999999773,
                     zoom: 13.562447828007302,
@@ -1480,6 +1459,21 @@ const initMap = async () => {
                         return t;
                     }
                 });
+                ex4.value='green'
+
+                // map.easeTo({
+                //     center: [113.96210534596526, 39.34361926956976],
+                //     pitch: 34.26033057851127,
+                //     bearing: -19.999999999999773,
+                //     zoom: 13.562447828007302,
+                //     duration: 1000, // 缓动动画的时间
+                //     easing: function (t: any) { // 缓动函数
+                //         return t;
+                //     }
+                // });
+                await dyDrawTest()
+                removeLayer('imageWar','images')
+
                 // await dyDrawTest()
                 // await asyncAddLayer('rijuntuanchengmian', 'rijuntuanchengmian', staticData.rijuntuanchengmian, 'fill',
                 //     {
@@ -1492,569 +1486,71 @@ const initMap = async () => {
 
                 //rijuntuancheng
                 // await dyDrawTest()
+                await sleep(1000)
+                ex5.value='yellow'
                 textMessage.value = '由于国军未按原定计划作战，最终日军由东跑池方向从团城口突围'
                 typewriter()
-                await sleep(5000)
-                warShow.value=false
-                personVs.value=true
+                ex1.value=''
+                ex2.value=''
+                ex3.value=''
+                ex4.value=''
+                ex5.value=''
+                audioIndex.value = '/static/逃跑2.mp3'
+                audioFlag.value = 11
+                await sleep(200)
+                //让浏览器缓一缓
+                playAudio()
+                await sleep(2000)
+                
+                textIntroFlag.value=0
+                
+                await sleep(6000)
+                warShow.value = false
+                personVs.value = true
+                
+                textTitle.value='总结'
                 textMessage.value = '这是林彪与板垣征四郎的第一次正面交锋，最终以八路军获胜作为结果'
                 typewriter()
+                //textGif.value = './static/555slow.gif'
+                audioIndex.value = '/static/交锋获胜2.mp3'
+                audioFlag.value = 12
+                //让浏览器缓一缓
+                await sleep(200)
+                playAudio()
+                ex1.value='black'
                 await sleep(5000)
-                banyuanDie.value=true
+                ex2.value='rgb(0,0,255)'
+                banyuanDie.value = true
                 await sleep(2000)
-                personVs.value=false
-                jiaohuo.value=true
+                ex3.value='red'
+                personVs.value = false
+                jiaohuo.value = true
                 await sleep(6000)
-                jiaohuo.value=false
-                
-
+                jiaohuo.value = false
+                await sleep(1000)
+                listShow.value = true
+                ListShowSum.value = true
+                textIntroFlag.value=5
+                ex4.value='green'
+                textTitle.value='总结'
+                ex5.value='yellow'
             },
-
-
         ];
-
-
-
-
-
-        //dyDraw1()
-        //await setImage()
-        //map?.setPaintProperty('imageWar', 'raster-opacity', 0);
-        //await dyDraw2()
-        // await  dyDraw1()
-
-        // addLayer('my-source', 'my-layer', staticData.tuan6851, 'fill',
-        //     {
-        //         paint: {
-        //             'fill-color': '#00f',
-        //             'fill-opacity': 0,
-        //         }, layout: {}, filter: []
-        //     })
-        //flashLayer('my-layer', map)
-        //加入重要地名
-
-
-
-        // 1000ms表示1秒钟
-
-        // 动画函数
-        //   function animate() {
-        //     // 增加填充面积透明度
-        //     var opacity = map.getPaintProperty('my-layer', 'fill-opacity');
-        //     opacity += 0.01;
-        //     if (opacity > 1) {
-        //       opacity = 1;
-        //     }
-        //     map.setPaintProperty('my-layer', 'fill-opacity', opacity);
-
-        //     // 如果透明度未达到最大值，则继续动画
-        //     if (opacity < 1) {
-        //       requestAnimationFrame(animate);
-        //     }
-        //   }
-        //   animate()
-
-        // map.addLayer({
-        //     id: 'my-layer',
-        //     type: 'fill-extrusion',
-        //     source: 'my-source',
-        //     paint: {
-        //       'fill-extrusion-color': '#00f',
-        //       'fill-extrusion-height': 0,
-        //       'fill-extrusion-opacity': 0.8,
-        //       'fill-extrusion-transition': {
-        //         duration: 2000
-        //       }
-        //     }
-        //   });
-
-        //   // 动画函数
-        //   function animate() {
-        //     // 增加填充面积高度
-        //     var height = map.getPaintProperty('my-layer', 'fill-extrusion-height');
-        //     height += 1;
-        //     if (height > 1000) {
-        //       height = 1000;
-        //     }
-        //     map.setPaintProperty('my-layer', 'fill-extrusion-height', height);
-
-        //     // 如果高度未达到最大值，则继续动画
-        //     if (height < 1000) {
-        //       requestAnimationFrame(animate);
-        //     }
-        //   }
-
-        // map.addLayer({
-        //     id: 'my-layer',
-        //     type: 'fill-extrusion',
-        //     source: 'my-source',
-        //     paint: {
-        //       'fill-extrusion-color': '#00f',
-        //       'fill-extrusion-height': 0,
-        //       'fill-extrusion-opacity': 0.8
-        //     }
-        //   });
-
-        //   // 定义动画函数
-        //   function animate(height) {
-        //     // 如果高度未达到最大值，则继续动画
-        //     if (height <= 1000) {
-        //       // 增加填充面积高度
-        //       height += 1;
-        //       map.setPaintProperty('my-layer', 'fill-extrusion-height', height);
-        //       setTimeout(function() {
-        //         animate(height);
-        //       }, 20);
-        //     }
-        //   }
-
-        //   // 开始动画
-        //   animate(0);
-        // map.addLayer({
-        //     id: 'my-layer',
-        //     type: 'fill',
-        //     source: 'my-source',
-        //     paint: {
-        //       'fill-color': '#00f',
-        //       'fill-opacity': 0.8
-        //     }
-        //   });
-        //   let bufferRadius = 0;
-        //   // 创建生长动画
-        //   function grow() {
-        //     // 缓冲面要素
-        //     var buffer = turf.buffer(map.getSource('my-source')._data.features[0], bufferRadius, {units: 'miles'});
-
-        //     // 更新地图上的要素
-        //     map.getSource('my-source').setData(buffer);
-
-        //     // 增加缓冲区半径
-        //     bufferRadius += 0.1;
-
-        //     // 如果缓冲区半径未达到最大值，则继续动画
-        //     if (bufferRadius <= 1) {
-        //       setTimeout(grow, 50);
-        //     }
-        //   }
-
-        //   // 开始动画
-        //   grow();
-
-        // 添加面图层
-        // 添加面图层
-        //    map.addLayer({
-        //     id: 'my-layer',
-        //     type: 'fill',
-        //     source: 'my-source',
-        //     paint: {
-        //       'fill-color': '#00f',
-        //       'fill-opacity': 0,
-        //       'fill-outline-color': '#00f'
-        //     }
-        //   });
-
-        //   // 获取面积
-        //   var features = map.querySourceFeatures('my-source');
-        //   console.log(features)
-        //   var areas = features.map(function(feature:any) {
-        //     return turf.area(feature.geometry);
-        //   });
-
-        //   // 将面积转换为每毫秒增加的面积
-        //   var increment = Math.max.apply(null, areas) / 200;
-        //   var currentArea = 0;
-
-        //   // 动画函数
-        //   function animate() {
-        //     if (currentArea < Math.max.apply(null, areas)) {
-        //         console.log(areas)
-        //       currentArea += increment;
-        //       map.setPaintProperty('my-layer', 'fill-opacity', currentArea / Math.max.apply(null, areas));
-        //       requestAnimationFrame(animate);
-        //     }
-        //   }
-        //   console.log("jajha")
-        //   // 开始动画
-        //   animate();
-        // map.addSource('mapbox-terrain', {
-        //     type: 'vector',
-        //     // Use any Mapbox-hosted tileset using its tileset id.
-        //     // Learn more about where to find a tileset id:
-        //     // https://docs.mapbox.com/help/glossary/tileset-id/
-        //     url: 'mapbox://mapbox.mapbox-terrain-v2'
-        // });
-        // map.addLayer(
-        //     {
-        //         'id': 'terrain-data',
-        //         'type': 'line',
-        //         'source': 'mapbox-terrain',
-        //         'source-layer': 'contour',
-        //         'layout': {
-        //             'line-join': 'round',
-        //             'line-cap': 'round'
-        //         },
-        //         'paint': {
-        //             'line-color': '#ff69b4',
-        //             'line-width': 1
-        //         }
-        //     },
-        //     // 'road-label-simple' // Add layer below labels
-        // );
-        //卫星影像
-        // map.addSource('strs', {
-        //     type: "raster",
-        //     tiles: [`http://localhost:8070/getTile2?x={x}&y={y}&z={z}`],
-        //   });
-        //   map.addLayer({
-        //     id: 'strs',
-        //     type: "raster",
-        //     source: 'strs',
-        //   });
-
-        // map.addSource('dem', {
-        //     type: "raster-dem",
-        //     //tiles: [`${prefix}visual/ObliqueImage/{x}/{y}/{z}`],
-        //     tiles: [`http://localhost:4090/getTiles?x={x}&y={y}&z={z}`],
-        //     'tileSize': 512,
-        //   });
-        //   map.addLayer({
-        //     id: 'dem',
-        //     type: 'hillshade',
-        //     source: 'dem',
-
-        //   });
-        //   map.setTerrain({ 'source': 'dem', 'exaggeration': 0.004 })
-
-        //       map.addSource('image', {
-        //     'type': 'image',
-        //     'url': 'https://docs.mapbox.com/mapbox-gl-js/assets/radar.gif',
-        //     'coordinates': [
-        //         [113.844175, 39.41013],
-        //         [114.092054, 39.41013],
-        //         [113.844175, 39.162826],
-        //         [114.092054, 39.162826]
-        //     ]
-        // });
-        // map.addLayer({
-        //     id: 'image-layer',
-        //     'type': 'raster',
-        //     'source': 'image',
-        //     'paint': {
-        //         'raster-fade-duration': 0,
-
-        //     }
-        // });
-
-        // map.addSource('image', {
-        //     'type': 'geojson',
-        //     'data': {
-        //         'type': 'Feature',
-        //         'geometry': {
-        //             'type': 'Polygon',
-        //             'coordinates': [[
-        //             [-80.425, 46.437],
-        //                 [-71.516, 46.437],
-        //                 [-71.516, 37.936],
-        //                 [-80.425, 37.936],
-        //                 [-80.425, 46.437]
-        //             ]]
-        //         }
-        //     }
-        // });
-        // map.addLayer({
-        //     id: 'image-layer',
-        //     'type': 'fill-extrusion',
-        //     'source': 'image',
-        //     'paint': {
-        //         'fill-extrusion-color': 'red',
-        //         'fill-extrusion-height': ['get', 'height'],
-        //         'fill-extrusion-base': 0,
-        //         'fill-extrusion-opacity': 0.6
-        //     }
-        // });
-
-
-        // map.addSource("bridgeIntro", {
-        //     type: "geojson",
-        //     data: geojsonss,
-        // });
-        // map.addLayer({
-        //     id: "bridgeIntro",
-        //     type: "circle",
-        //     paint: {
-        //         'circle-color': 'red',
-        //         'circle-radius': 30,
-        //     },
-        //     source: "bridgeIntro",
-        // });
-
-
-
-        // map.addSource('route', {
-        //     'type': 'geojson',
-        //     'data': {
-        //         'type': 'Feature',
-        //         'properties': {},
-        //         'geometry': {
-        //             'type': 'LineString',
-        //             'coordinates': [
-        //                 [-122.483696, 37.833818],
-        //                 [-122.483482, 37.833174],
-        //                 [-122.483396, 37.8327],
-        //                 [-122.483568, 37.832056],
-        //                 [-122.48404, 37.831141],
-        //                 [-122.48404, 37.830497],
-        //                 [-122.483482, 37.82992],
-        //                 [-122.483568, 37.829548],
-        //                 [-122.48507, 37.829446],
-        //                 [-122.4861, 37.828802],
-        //                 [-122.486958, 37.82931],
-        //                 [-122.487001, 37.830802],
-        //                 [-122.487516, 37.831683],
-        //                 [-122.488031, 37.832158],
-        //                 [-122.488889, 37.832971],
-        //                 [-122.489876, 37.832632],
-        //                 [-122.490434, 37.832937],
-        //                 [-122.49125, 37.832429],
-        //                 [-122.491636, 37.832564],
-        //                 [-122.492237, 37.833378],
-        //                 [-122.493782, 37.833683]
-        //             ]
-        //         }
-        //     }
-        // });
-        // map.addLayer({
-        //     'id': 'route',
-        //     'type': 'line',
-        //     'source': 'route',
-        //     'layout': {
-        //         'line-join': 'round',
-        //         'line-cap': 'round'
-        //     },
-        //     'paint': {
-        //         'line-color': 'red',
-        //         'line-width': 15
-        //     }
-        // });
-        // map.addSource('route', {
-        //     'type': 'geojson',
-        //     'data': staticData.rijun21lvxian
-        // });
-        // map.addLayer({
-        //     'id': 'route',
-        //     'type': 'line',
-        //     'source': 'route',
-        //     'layout': {
-        //         'line-join': 'round',
-        //         'line-cap': 'round'
-        //     },
-        //     'paint': {
-        //         'line-color': 'red',
-        //         'line-width': 10
-        //     }
-        // });
-
-        // map.addSource('route2', {
-        //     'type': 'geojson',
-        //     'data': staticData.mian
-        // });
-        // map.addLayer({
-        //     'id': 'route2',
-        //     'type': 'line',
-        //     'source': 'route2',
-        //     'layout': {
-        //         'line-join': 'round',
-        //         'line-cap': 'round'
-        //     },
-        //     'paint': {
-        //         'line-color': 'red',
-        //         'line-width': 5
-        //     }
-        // });
-        //进攻面
-        // map.addSource('route2', {
-        //     'type': 'geojson',
-        //     'data': staticData.mian
-        // });
-        // map.addLayer({
-        //     'id': 'route2',
-        //     'type': 'fill',
-        //     'source': 'route2',
-        //     'layout': {
-        //     },
-        //     'paint': {
-        //         'fill-color':'red',
-        //         'fill-opacity':0.5
-        // }
-        // });
-
-
-
-
-
-        map.addSource('line', {
-            type: 'geojson',
-            data: geojson
-        });
-
         // add a line layer without line-dasharray defined to fill the gaps in the dashed line
-        map.addLayer({
-            type: 'line',
-            source: 'line',
-            id: 'line-background',
-            paint: {
-                'line-color': 'yellow',
-                'line-width': 6,
-                'line-opacity': 0.4
-            }
-        });
 
         // add a line layer with line-dasharray set to the first value in dashArraySequence
-        map.addLayer({
-            type: 'line',
-            source: 'line',
-            id: 'line-dashed',
-            paint: {
-                'line-color': 'yellow',
-                'line-width': 6,
-                'line-dasharray': [0, 4, 3]
-            }
-        });
+
 
         // technique based on https://jsfiddle.net/2mws8y3q/
         // an array of valid line-dasharray values, specifying the lengths of the alternating dashes and gaps that form the dash pattern
-        const dashArraySequence = [
-            [0, 4, 3],
-            [0.5, 4, 2.5],
-            [1, 4, 2],
-            [1.5, 4, 1.5],
-            [2, 4, 1],
-            [2.5, 4, 0.5],
-            [3, 4, 0],
-            [0, 0.5, 3, 3.5],
-            [0, 1, 3, 3],
-            [0, 1.5, 3, 2.5],
-            [0, 2, 3, 2],
-            [0, 2.5, 3, 1.5],
-            [0, 3, 3, 1],
-            [0, 3.5, 3, 0.5]
-        ];
 
-        let step = 0;
 
-        function animateDashArray(timestamp: any) {
-            // Update line-dasharray using the next value in dashArraySequence. The
-            // divisor in the expression `timestamp / 50` controls the animation speed.
-            const newStep = parseInt(
-                (timestamp / 50) % dashArraySequence.length
-            );
-
-            if (newStep !== step) {
-                map.setPaintProperty(
-                    'line-dashed',
-                    'line-dasharray',
-                    dashArraySequence[step]
-                );
-                step = newStep;
-            }
-
-            // Request the next frame of the animation.
-            requestAnimationFrame(animateDashArray);
-        }
 
         // start the animation
-        animateDashArray(0);
+      
 
     })
-    //     map.on('data', function(e:any) {
-    //   if (e.sourceId === 'my-data' && e.isSourceLoaded) {
-    //     // 使用动画功能在地图上绘制多边形
-
-    //     animatePolygon();
-    //   }
-    //   function animatePolygon() {
-    //   var draw = false;
-    //   var timer = null;
-    //   map.on('mousemove', function(e:any) {
-    //     if (draw) {
-    //       var polygon = turf.circle([e.lngLat.lng, e.lngLat.lat], 0.1, { steps: 30 });
-    //       map.getSource('my-data').setData(polygon);
-    //       map.addLayer({
-    //       'id': 'my-layer',
-    //       'type': 'fill',
-    //       'source': 'my-data',
-    //       'paint': {
-    //         'fill-color': '#088',
-    //         'fill-opacity': 0.8
-    //       },
-    //       'layout': {
-    //         'visibility': 'visible'
-    //       },
-    //       'filter': ['==', '$type', 'Polygon']
-    //     });
-    //     }
-    //   });
-    //   map.on('mousedown', function() {
-    //     draw = true;
-    //   });
-    //   map.on('mouseup', function() {
-    //     draw = false;
-    //   });
-    // }
-    // });
-
-
-    // 添加填充面图层
-
-
-    // map?.flyTo({
-    //     center: [113.8758628, 39.02994996],
-    //     zoom: 8,
-    //     speed: 300,
-    // });
-
 }
-//闪烁函数
-
-
-const addLayer = (sourceId: string, layerId: string, data: any, type: string, layerConfig?: any) => {
-
-    map.addSource(sourceId, {
-        type: 'geojson',
-        data: data
-    });
-    map.addLayer({
-        id: layerId,
-        type: type,
-        source: sourceId,
-        paint: layerConfig?.paint,
-        layout: layerConfig?.layout,
-        //filter: layerConfig?.filter
-    });
-}
-
-const asyncAddLayer = async (sourceId: string, layerId: string, data: any, type: string, layerConfig?: any) => {
-    return new Promise(resolve => {
-        setTimeout(() => {
-            map.addSource(sourceId, {
-                type: 'geojson',
-                data: data
-            });
-            map.addLayer({
-                id: layerId,
-                type: type,
-                source: sourceId,
-                paint: layerConfig?.paint,
-                layout: layerConfig?.layout,
-                //filter: layerConfig?.filter
-            });
-            resolve("resolve")
-
-        }, 3000)
-    })
-
-}
-
 const overVideo = async () => {
     videoOn.value = false
     map.easeTo({
@@ -2068,18 +1564,14 @@ const overVideo = async () => {
         }
     });
 
-    await asyncAddLayer('rijuntuanchengmian', 'rijuntuanchengmian', staticData.rijuntuanchengmian, 'fill',
+    await asyncAddLayer('rijuntuanchengmian', 'rijuntuanchengmian', staticData.rijuntuanchengmian, 'fill',2000,
         {
             paint: {
                 'fill-color': '#191970',
                 'fill-opacity': 1,
             }, layout: {}, filter: []
-        })
+        },map)
 }
-var isPlay = false
-var counter = 0
-var steps = 0
-let aLength = 0;
 const runTasks = async (index: any) => {
     if (index < task.value.length) {
         const task2: any = task.value[index];
@@ -2092,303 +1584,18 @@ const PlayOnClick = () => {
     ifPause.value = !ifPause.value
     runTasks(0);
 }
-const startHuangGang = [114.88005, 30.43472];
-const midHuangPu = [113.42526, 23.08652];
-const midNanChang = [115.94422, 28.54538];
-const midJingGangShan = [114.28953, 26.74808]
-const midHuangPi = [114.37509, 30.88131]
-const midLuding = [102.232124, 29.911751]
-const midYiChang = [111.43471, 30.5307]
-const midPingXingGuan = [121.458259, 31.28067]
-//const midMosike = [55.45,37.35]
-const midShenYang = [123.46987, 41.80515]
-const midChhangChun = [125.28845, 43.83327]
-const midTianJin = [117.30983, 39.71755]
-const midBeijing = [116.04512, 29.44821]
-const midLushan = [116.04512, 29.44821]
-const midBeijing2 = [116.23128, 40.22077]
-const sumCoordinates = [startHuangGang, midHuangPu, midNanChang, midJingGangShan, midHuangPi, midLuding, midYiChang, midPingXingGuan, midShenYang, midChhangChun, midTianJin, midBeijing, midLushan, midBeijing2]
-const routeGeoJson = {
-    'type': 'FeatureCollection',
-    'features': [{
-        'type': 'Feature',
-        'geometry': {
-            'type': 'LineString',
-            'coordinates': sumCoordinates
-            //[
-            // [116.391844, 39.898457],
-            // [116.377947, 39.898595],
-            // [116.368001, 39.898341],
-            // [116.357144, 39.898063],
-            // [116.351934, 39.899095],
-            // [116.35067, 39.905871],
-            // [116.3498, 39.922329],
-            // [116.349671, 39.931017],
-            // [116.349225, 39.939104],
-            // [116.34991, 39.942233],
-            // [116.366892, 39.947263],
-            // [116.387537, 39.947568],
-            // [116.401988, 39.947764],
-            // [116.410824, 39.947929],
-            // [116.42674, 39.947558],
-            // [116.427338, 39.9397],
-            // [116.427919, 39.932404],
-            // [116.428377, 39.923109],
-            // [116.429583, 39.907094],
-            // [116.41404, 39.906858],
-            // [116.405321, 39.906622],
-            // [116.394954, 39.906324],
-            // [116.391264, 39.906308],
-            // [116.390748, 39.916611]
-            //]
-        }
-    }]
-}
-
-const realRouteGeoJson = {
-    'type': 'FeatureCollection',
-    'features': [{
-        'type': 'Feature',
-        'geometry': {
-            'type': 'LineString',
-            'coordinates': []
-        }
-    }]
-}
-
-const animatePointGeoJson = {
-    'type': 'FeatureCollection',
-    'features': [{
-        'type': 'Feature',
-        'properties': {},
-        'geometry': {
-            'type': 'Point',
-            'coordinates': []
-        }
-    }]
-}
 
 
-// 获取轨迹数据
-function setRouteData() {
-    (animatePointGeoJson.features[0].geometry.coordinates as number[]) = routeGeoJson.features[0].geometry.coordinates[0]
-    aLength = routeGeoJson.features[0].geometry.coordinates.length;
-    newRouteGeoJson = resetRoute(routeGeoJson.features[0], 7000, 'kilometers')
-    steps = newRouteGeoJson.geometry.coordinates.length
 
-    //addRoutelayer() // 添加轨迹线图层
-    addRealRouteSource() // 添加实时轨迹线图层
-    addArrowlayer() // 添加箭头图层
-    addAnimatePointSource() // 添加动态点图层
-}
-
-// 添加轨迹线图层
-function addRoutelayer() {
-    map.addLayer({
-        'id': 'routeLayer',
-        'type': 'line',
-        'source': {
-            'type': 'geojson',
-            'lineMetrics': true,
-            'data': routeGeoJson
-        },
-        'paint': {
-            'line-width': 10,
-            'line-opacity': 1,
-            'line-color': '#009EFF',
-        }
-    });
-}
-
-// 添加实时轨迹线
-function addRealRouteSource() {
-    map.addLayer({
-        'id': 'realRouteLayer',
-        'type': 'line',
-        'source': {
-            'type': 'geojson',
-            'lineMetrics': true,
-            'data': realRouteGeoJson
-        },
-        'paint': {
-            'line-width': 10,
-            'line-opacity': 1,
-            'line-color': '#FF9900',
-        }
-    });
-}
-
-// 添加箭头图层
-function addArrowlayer() {
-    map.addLayer({
-        'id': 'arrowLayer',
-        'type': 'symbol',
-        'source': {
-            'type': 'geojson',
-            'data': routeGeoJson //轨迹geojson格式数据
-        },
-        'layout': {
-            'symbol-placement': 'line',
-            'symbol-spacing': 50, // 图标间隔，默认为250
-            'icon-image': 'arrowIcon', //箭头图标
-            'icon-size': 0.5
-        }
-    });
-}
-
-// 添加动态点图层
-function addAnimatePointSource() {
-    map.addLayer({
-        'id': 'animatePointLayer',
-        'type': 'symbol',
-        'source': {
-            'type': 'geojson',
-            'data': animatePointGeoJson
-        },
-        'layout': {
-            'icon-image': 'carIcon',
-            'icon-size': 0.5,
-            'icon-rotate': ['get', 'bearing'],
-            'icon-rotation-alignment': 'map',
-            'icon-allow-overlap': true,
-            'icon-ignore-placement': true
-        }
-    });
-
-    animate()
-}
-
-function animate() {
-    if (counter > 995) {
-        //console.log(realRouteGeoJson)
-        const saveJSON = (data: any, filename: any) => {
-            if (!data) {
-                alert("保存的数据为空");
-                return;
-            }
-            if (!filename) filename = "json.json";
-            if (typeof data === "object") {
-                data = JSON.stringify(data, undefined, 4);
-            }
-            var blob = new Blob([data], { type: "text/json" }),
-                e = document.createEvent("MouseEvents"),
-                a = document.createElement("a");
-            a.download = filename;
-            a.href = window.URL.createObjectURL(blob);
-            a.dataset.downloadurl = ["text/json", a.download, a.href].join(":");
-            e.initMouseEvent(
-                "click",
-                true,
-                false,
-                window,
-                0,
-                0,
-                0,
-                0,
-                0,
-                false,
-                false,
-                false,
-                false,
-                0,
-                null
-            );
-            a.dispatchEvent(e);
-        }
-        //saveJSON(realRouteGeoJson,'jsons.json')
-    }
-    if (counter >= steps) {
-        return
-    }
-    var startPnt, endPnt
-    if (counter == 0) {
-        realRouteGeoJson.features[0].geometry.coordinates = []
-        startPnt = newRouteGeoJson.geometry.coordinates[counter]
-        endPnt = newRouteGeoJson.geometry.coordinates[counter + 1]
-    } else if (counter !== 0) {
-        startPnt = newRouteGeoJson.geometry.coordinates[counter - 1]
-        endPnt = newRouteGeoJson.geometry.coordinates[counter]
-    }
-
-    // animatePointGeoJson.features[0].properties.bearing = turf.bearing(
-    //     turf.point(startPnt),
-    //     turf.point(endPnt)
-    // ) - 90;
-    animatePointGeoJson.features[0].geometry.coordinates = newRouteGeoJson.geometry.coordinates[counter];
-    (realRouteGeoJson.features[0].geometry.coordinates as any[]).push(animatePointGeoJson.features[0].geometry.coordinates as any)
-
-    map.getSource('animatePointLayer').setData(animatePointGeoJson);
-    map.getSource('realRouteLayer').setData(realRouteGeoJson);
-    if (isPlay) {
-        requestAnimationFrame(animate);
-    }
-    counter = counter + 1;
-
-    map.flyTo({
-        center: (animatePointGeoJson.features[0].geometry.coordinates as any[]),
-        zoom: 8,
-        speed: 300,
-    });
-    //console.log(counter)
-}
-
-function resetRoute(route: any, nstep: any, units: any) {
-    var newroute = {
-        'type': 'Feature',
-        'geometry': {
-            'type': 'LineString',
-            'coordinates': []
-        }
-    }
-    var lineDistance = turf.lineDistance(route);
-    var nDistance = lineDistance / nstep;
-    for (let i = 0; i < aLength - 1; i++) {
-        var from = turf.point(route.geometry.coordinates[i]);
-        var to = turf.point(route.geometry.coordinates[i + 1]);
-        let lDistance = turf.distance(from, to, {
-            units: units
-        });
-        if (i == 0) {
-            (newroute.geometry.coordinates as any[]).push(route.geometry.coordinates[0])
-        }
-        if (lDistance > nDistance) {
-            let rings = lineMore(from, to, lDistance, nDistance, units)
-            newroute.geometry.coordinates = newroute.geometry.coordinates.concat(rings)
-        } else {
-            (newroute.geometry.coordinates as any[]).push(route.geometry.coordinates[i + 1])
-        }
-    }
-    return newroute
-}
-
-function lineMore(from: any, to: any, distance: number, splitLength: number, units: any) {
-    var step = Number(distance / splitLength)
-    var leftLength = distance - step * splitLength
-    var rings = []
-    var route = turf.lineString([from.geometry.coordinates, to.geometry.coordinates])
-    for (let i = 1; i <= step; i++) {
-        let nlength = i * splitLength
-        let pnt = turf.along(route, nlength, {
-            units: units
-        });
-        rings.push(pnt.geometry.coordinates)
-    }
-    if (leftLength > 0) {
-        rings.push(to.geometry.coordinates)
-    }
-    return rings
-}
-
-async function sleep(delay:any){
-    await new Promise(resolve => setTimeout(resolve, delay));
-    console.log(`等待了${delay}秒钟，继续执行`);
-}
+onMounted(async () => {
+    initMap()
 
 
-onMounted(() => {
-            initMap()
-            // initJiaohuo()
+
+
+    // initJiaohuo()
 })
+
 </script>
 
 <style scoped lang="scss">
@@ -2399,66 +1606,252 @@ onMounted(() => {
 
 }
 
-.jiaohuo{
+p.ex {color:white;font-size:28px;line-height:50px}
+	span.ex1 {background-color:v-bind(ex1);color:white;font-style: italic;font-weight: bold;}
+    span.ex2 {background-color:v-bind(ex2);color:white;font-style: italic;font-weight: bold;}
+    span.ex3 {background-color:v-bind(ex3);color:white;font-style: italic;font-weight: bold;}
+	span.ex4 {background-color:v-bind(ex4);color:white;font-style: italic;font-weight: bold;}
+	span.ex5 {background-color:v-bind(ex5);color:red;font-style: italic;font-weight: bold;} //动词
+.lists {
     position: absolute;
-    display: flex;
-    justify-content: center;
-    left:25vw;
-    top:20vh;
-    align-items: center;
-   
-    width: 50vw;
-    height:64vh;
-    z-index:1000;
-    animation-name: scale-up-tr;
-		animation-duration: 1s;
-		animation-timing-function: linear;
-		animation-delay: 0s;
-		animation-iteration-count: 1;
-		animation-direction: normal;
-		animation-fill-mode: none;
-        @keyframes scale-up-tr {
-			
+    width: 10vw;
+    height: 80vh;
+    left: 88vw;
+    top: 8vh;
+    //background-color: #0040a1;
+    z-index: 2000;
+
+    .dis {
+        animation-name: slide-out-fwd-right;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-delay: 0s;
+        animation-iteration-count: 1;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+    }
+
+
+    @keyframes slide-out-fwd-right {
+
+        0% {
+            transform: translateZ(0) translateX(0);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translateZ(20px) translateX(20px);
+            opacity: 0;
+
+        }
+    }
+
+    .app {
+        animation-name: slide-in-bck-right;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-delay: 0s;
+        animation-iteration-count: 1;
+        animation-direction: normal;
+        animation-fill-mode: none;
+
+        @keyframes slide-in-bck-right {
+
             0% {
-                transform:scale(.2);
-                transform-origin:100% 0%;
+                transform: translateZ(700px) translateX(400px);
+                opacity: 0;
             }
+
             100% {
-                transform:scale(1);
-                transform-origin:100% 0%;
+                transform: translateZ(0) translateX(0);
+                opacity: 1;
+
             }
         }
-    .BingliCon {
-    width: 100%;
-    height: 95%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 30px;
-    align-items: center;
-    justify-content: center;
-    z-index:1000;
+    }
 
-  }
-  
-  .binglitext {
-    margin-bottom: 20px;
-    font-size: 20px;
-    color: azure;
-  }
+    .layer {
+        width: 100%;
+        height: 5vh;
+        line-height: 5vh;
+        text-align: center;
+        color: white;
+
+
+    }
 }
+
+.fly-container {
+    z-index: 100;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+
+    .fly {
+        width: 20vw;
+        height: 40vh;
+        //margin:auto;
+        z-index: 100;
+
+        animation-name: slide-out-br;
+        animation-duration: 2.5s;
+        animation-timing-function: linear;
+        animation-delay: 0s;
+        animation-iteration-count: 1;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes slide-out-br {
+
+        0% {
+            transform: translateY(0) translateX(0);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translateY(1200px) translateX(2500px);
+            opacity: 0;
+        }
+    }
+}
+
+.textIntro{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    font-size:22px;
+    left: 0vw;
+    top: 0vh;
+    width: 30vw;
+    height: 42vh;
+    z-index: 1000;
+    align-items: center;
+    color: black;
+}
+.jiaohuo {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    left: 1vw;
+    //top: 1vh;
+    align-items: center;
+
+    // width: 30vw;
+    // height: 50vh;
+    width:40vw;
+    height:43vh;
+    z-index: 1000;
+    animation-name: scale-up-tr;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: none;
+
+    @keyframes scale-up-tr {
+
+        0% {
+            transform: scale(.2);
+            transform-origin: 100% 0%;
+        }
+
+        100% {
+            transform: scale(1);
+            transform-origin: 100% 0%;
+        }
+    }
+
+    .BingliCon {
+        width: 100%;
+        height: 95%;
+        display: flex;
+        flex-direction: column;
+        //padding-top: 30px;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+
+    }
+
+    .binglitext {
+        margin-bottom: 5px;
+        font-size: 20px;
+        color: azure;
+    }
+}
+.die {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    left: 1vw;
+    top: 43vh;
+    align-items: center;
+
+    // width: 30vw;
+    // height: 50vh;
+    width:40vw;
+    height:42vh;
+    z-index: 1000;
+    animation-name: scale-up-tr;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: none;
+
+    @keyframes scale-up-tr {
+
+        0% {
+            transform: scale(.2);
+            transform-origin: 100% 0%;
+        }
+
+        100% {
+            transform: scale(1);
+            transform-origin: 100% 0%;
+        }
+    }
+
+    .BingliCon {
+        width: 100%;
+        height: 95%;
+        display: flex;
+        flex-direction: column;
+        //padding-top: 30px;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+
+    }
+
+    .binglitext {
+        margin-bottom: 5px;
+        font-size: 20px;
+        color: azure;
+    }
+}
+
 .zuo_person {
     position: absolute;
-    left: 20vw;
-    top: 35vh;
+    // left: 20vw;
+    // top: 30vh;
+    left: 0vw;
+    top: 0vh;
     z-index: 1200;
-    height: 55vh;
-    width: 25vw;
+    height: 42vh;
+    width: 20vw;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    margin-top: 1vh;
-
+   
     .at-item {
         animation-name: roll-in-blurred-left;
         animation-duration: 1s;
@@ -2506,16 +1899,17 @@ onMounted(() => {
 
 .you_person {
     position: absolute;
-    right: 20vw;
-    bottom: 40vh;
+    left:0vw;
+    //right: 20vw;
+    top: 42.5vh;
     z-index: 1200;
-    height: 60vh;
-    width: 25vw;
+    height: 43vh;
+    width: 20vw;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    margin-left: 1vh;
+   
 
     .at-item {
         animation-name: roll-in-blurred-right;
@@ -2527,7 +1921,7 @@ onMounted(() => {
         animation-fill-mode: none;
 
     }
-    
+
 
     @keyframes roll-in-blurred-right {
 
@@ -2543,27 +1937,30 @@ onMounted(() => {
             opacity: 1;
         }
     }
-    .at-item2{
+
+    .at-item2 {
         animation-name: roll-out-blurred-bottom;
-		animation-duration: 1s;
-		animation-timing-function: linear;
-		animation-delay: 0s;
-		animation-iteration-count: 1;
-		animation-direction: normal;
-		animation-fill-mode: forwards;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-delay: 0s;
+        animation-iteration-count: 1;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
     }
+
     @keyframes roll-out-blurred-bottom {
-			
-            0% {
-                transform:translateY(0) rotate(0deg);
-                opacity:1;
-            }
-            100% {
-                transform:translateY(800px) rotate(720deg);
-                filter:blur(50px);
-                opacity:0;
-            }
+
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
         }
+
+        100% {
+            transform: translateY(800px) rotate(720deg);
+            filter: blur(50px);
+            opacity: 0;
+        }
+    }
 
     .flex-row-center {
         display: flex;
@@ -2685,9 +2082,15 @@ div.play-button {
 
 .vedio {
     position: fixed;
-    top: 30vh;
-    //left:vw;
+    top: 42vh;
+margin-left: 10px;;
+margin-bottom: 5vh;;
     z-index: 999;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: left;
+    //margin-top:2vh
 }
 
 .explain {
@@ -2720,7 +2123,7 @@ div.play-button {
 
 .explain2 {
     position: absolute;
-    // top: 5vh;
+    top: 42vh;
     // left: 3vw;
 
     .at-item {
@@ -2747,6 +2150,12 @@ div.play-button {
             opacity: 1;
         }
     }
+}
+
+.explain4 {
+    position: absolute;
+    top: 30vh;
+    left: 41vw;
 }
 
 .explain3 {
@@ -2863,10 +2272,11 @@ div.play-button {
 
 
 .textsss {
-    font-size: 2em;
+    font-size: 3em;
     color: white;
-    //margin-top:6vh;
+    margin-top: 0.5vh;
     text-align: center;
+    //align-items: center;
     font-family: sans-serif;
     white-space: nowrap;
     overflow: hidden;
@@ -2881,7 +2291,7 @@ div.play-button {
     position: absolute;
     display: inline-block;
     background-color: black;
-    top: 91vh;
+    top: 85vh;
     //margin:auto;
     width: 100%;
     //left: 1vw;
@@ -2889,7 +2299,7 @@ div.play-button {
     padding-top: 1vh;
 
     //width:v-bind(textLen);
-    height: 5vh;
+    height: 7vh;
     z-index: 999;
 
     // width:500px;
@@ -2898,12 +2308,12 @@ div.play-button {
 
 .progress-line {
     position: absolute;
-    top: 97vh;
+    top: 93vh;
     //background-color: rgba(220,220, 220 ,0.8);
     //background: linear-gradient(to right, gray 0%, gray 0%, blue 100%, blue 100%);
     //animation: progress 5s linear forwards;
     width: 100vw;
-    height: 3vh;
+    height: 7vh;
     z-index: 999;
     background-color: rgba(205, 133, 63, 0.6);
 
@@ -2914,7 +2324,7 @@ div.play-button {
         height: 100%;
         background-color: rgba(58, 95, 205, 0.8);
         width: 100%;
-        animation: progress 158s linear forwards;
+        animation: progress 184s linear forwards;
 
         div {
             display: inline-block;
@@ -2936,12 +2346,12 @@ div.play-button {
 
 .progress-line2 {
     position: absolute;
-    top: 97vh;
+    top: 93vh;
     //background-color: rgba(220,220, 220 ,0.8);
     //background: linear-gradient(to right, gray 0%, gray 0%, blue 100%, blue 100%);
     //animation: progress 5s linear forwards;
     width: 100vw;
-    height: 3vh;
+    height: 7vh;
     z-index: 2000;
     //background-color: #f2f2f2;
     overflow: hidden;
@@ -2952,11 +2362,23 @@ div.play-button {
         height: 100%;
         width: 100%;
         z-index: 3000;
+        text-align: baseline;
+        // align-items: center;
+
 
         div {
             //margin-top: 1vh;;
-            height: 3vh;
-            font-size: 25px;
+            margin: auto;
+            line-height: 7vh;
+
+
+
+
+            // text-align: center;
+            // align-items: center;
+            // line-height: -2vh;
+            height: 7vh;
+            font-size: 2.5em;
             box-sizing: border-box;
             display: inline-block;
             color: white;
@@ -2986,26 +2408,6 @@ div.play-button {
         width: 100%
     }
 }
-
-//     .at-item{
-//         animation-name: scale-up-center;
-// 		animation-duration: 1s;
-// 		animation-timing-function: linear;
-// 		animation-delay: 0s;
-// 		animation-iteration-count: 1;
-// 		animation-direction: normal;
-// 		animation-fill-mode: none;
-//     }
-// }
-// @keyframes scale-up-center {
-
-//             0% {
-//                 transform:scale(.2);
-//             }
-//             100% {
-//                 transform:scale(1);
-//             }
-//         }
 .menuBar {
     position: relative;
     top: 10px;

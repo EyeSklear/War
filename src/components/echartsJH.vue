@@ -13,24 +13,36 @@ let myChart: echarts.ECharts;
 let option: any = {};
 const initData = async()=>{
   option = {
+    title: {
+      text: '战争缴获',
+      x:'center',
+      y:'top',
+      padding: 10, 
+      textStyle: {
+        fontSize: 40,
+       
+        color: 'white',
+        fontFamily2: '微软雅黑',                             // 主标题文字颜色
+    },
+    },
       dataset: [
         {
           dimensions: ['name', 'value'],
           source: [
-            ['92步兵炮', 1],
+          
             ['步枪', 1000],
-            ['短枪', 13],
-            ['轻重机枪', 20],
+        
+          
             ['炮弹', 2840],
             ['步枪子弹', 3595],
             ['机枪子弹', 6700],
-            ['汽车', 79],
-            ['摩托车', 3],
+     
+        
             ['马车', 200],
-            ['骡', 3],
-            ['军马', 50],
+         
+      
             ['防毒器具', 100],
-            ['工兵器具', 18],
+          
           ]
         },
         {
@@ -42,7 +54,10 @@ const initData = async()=>{
       ],
       xAxis: {
         type: 'category',
-        axisLabel: { interval: 0, rotate: 30 }
+        axisLabel: { interval: 0, rotate: 30,        textStyle: {       // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+          fontSize: 20,
+          fontFamily2: '微软雅黑',
+        } }
       },
       yAxis: {},
       series: [
@@ -88,10 +103,10 @@ onMounted(async () => {
 <style scoped lang="scss">
 
 .RDsChart {
-    margin-top: 1vh;
-    margin-left: -2vh;
-    height: 60vh;
-    width: 40vw;
+  margin-top: 2vh;
+    margin-left: 5px;
+    height: 42vh;
+    width: 38vw;
     // height: 35vh;
     // width: 20vmax
 }

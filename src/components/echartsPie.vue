@@ -94,7 +94,7 @@ onMounted(async () => {
     margin-top: 1vh;
     margin-left: -2vh;
     height: 40vh;
-    width: 25vmax;
+    width: 25vw;
     // height: 35vh;
     // width: 20vmax
 }

@@ -443,7 +443,7 @@ const initMap = () => {
     }, 100);
         })
       }
-        const startHuangGang = [114.88005,30.43472];
+      const startHuangGang = [114.88005,30.43472];
       const midHuangPu = [113.42526,23.08652];
       const midNanChang = [115.94422,28.54538];
       const midJingGangShan = [114.28953,26.74808]
